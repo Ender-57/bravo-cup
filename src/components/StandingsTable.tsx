@@ -76,7 +76,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
           <div className="flex bg-slate-100 p-1 rounded-2xl border border-slate-200">
             {groups.map(grp => {
               const scheduleNote = !isMD 
-                ? (grp.includes('A') ? ' (Senin Sore)' : grp.includes('B') ? ' (Rabu Pagi)' : '')
+                ? (grp.includes('A') ? : grp.includes('B') ? : '')
                 : '';
               return (
                 <button

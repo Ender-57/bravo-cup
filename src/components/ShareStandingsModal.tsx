@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useTransition } from 'react';
 import { 
   X, Download, Share2, Copy, Check, Sparkles, 
-  AlertCircle, RefreshCw
+  AlertCircle, RefreshCw, Zap
 } from 'lucide-react';
-import html2canvas from 'html2canvas';
 import { Match, PlayerPair, StandingRow } from '../types';
 import { calculateStandings } from '../utils/standings';
+import { generateStandingsCanvasPoster } from '../utils/canvasPoster';
 
 interface ShareStandingsModalProps {
   isOpen: boolean;
@@ -22,12 +22,11 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
   matches,
   tournamentName,
 }) => {
-  const posterRef = useRef<HTMLDivElement>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImgUrl, setGeneratedImgUrl] = useState<string | null>(null);
   const [generatedBlob, setGeneratedBlob] = useState<Blob | null>(null);
   const [copySuccess, setCopySuccess] = useState(false);
   const [infoMessage, setInfoMessage] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   // Standings Calculation
   const mdTeamsA = teams.filter(t => t.category === 'MD' && t.group === 'Grup A');
@@ -58,77 +57,40 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
     minute: '2-digit',
   });
 
-  // Capture function using html2canvas
-  const generatePngImage = async (): Promise<{ blob: Blob; dataUrl: string } | null> => {
-    if (!posterRef.current) return null;
-    setIsGenerating(true);
-    setInfoMessage(null);
-
+  // Fast Instant Render via HTML5 Direct Canvas 2D
+  const renderPosterInstantly = () => {
     try {
-      // Small pause to guarantee styles and images are fully rendered
-      await new Promise(resolve => setTimeout(resolve, 150));
-
-      const targetEl = posterRef.current;
-      const fullWidth = 780;
-      const fullHeight = targetEl.scrollHeight || targetEl.offsetHeight;
-
-      const canvas = await html2canvas(targetEl, {
-        scale: 2, // 2x high resolution retina
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        allowTaint: true,
-        logging: false,
-        scrollX: 0,
-        scrollY: 0,
-        windowWidth: 850,
-        width: fullWidth,
-        height: fullHeight,
-        onclone: (_clonedDoc, clonedEl) => {
-          clonedEl.style.width = `${fullWidth}px`;
-          clonedEl.style.height = 'auto';
-          clonedEl.style.maxHeight = 'none';
-          clonedEl.style.overflow = 'visible';
-          clonedEl.style.transform = 'none';
-          clonedEl.style.boxSizing = 'border-box';
-        },
+      const { dataUrl, blobPromise } = generateStandingsCanvasPoster({
+        tournamentName,
+        currentDateStr,
+        currentTimeStr,
+        mdStandingsA,
+        mdStandingsB,
+        wdStandingsA,
+        wdStandingsB,
       });
 
-      const dataUrl = canvas.toDataURL('image/png', 1.0);
-      const blob = await new Promise<Blob | null>(res => {
-        canvas.toBlob(b => res(b), 'image/png', 1.0);
+      setGeneratedImgUrl(dataUrl);
+
+      blobPromise.then(blob => {
+        if (blob) setGeneratedBlob(blob);
       });
-
-      setIsGenerating(false);
-
-      if (blob && dataUrl) {
-        setGeneratedImgUrl(dataUrl);
-        setGeneratedBlob(blob);
-        return { blob, dataUrl };
-      }
-      return null;
     } catch (err) {
-      console.error('Failed to generate PNG image with html2canvas:', err);
-      setIsGenerating(false);
-      setInfoMessage('Gagal menghasilkan gambar PNG. Silakan coba lagi.');
-      return null;
+      console.error('Fast render failed:', err);
+      setInfoMessage('Gagal merender gambar.');
     }
   };
 
-  // Auto-generate on open
+  // Instant render upon modal opening
   useEffect(() => {
     if (isOpen) {
-      setGeneratedImgUrl(null);
-      setGeneratedBlob(null);
-      const timer = setTimeout(() => {
-        generatePngImage();
-      }, 200);
-      return () => clearTimeout(timer);
+      renderPosterInstantly();
     }
   }, [isOpen, teams, matches]);
 
   if (!isOpen) return null;
 
-  // Text summary for WA caption
+  // Build Text Summary for WA
   const buildAllStandingsText = () => {
     let text = `🏸 *KLASEMEN LENGKAP ${tournamentName.toUpperCase()}*\n`;
     text += `🗓️ _Update: ${currentDateStr}, ${currentTimeStr} WIB_\n`;
@@ -162,45 +124,35 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
 
   // Download PNG file directly
   const handleDownloadPng = async () => {
-    let dataUrl = generatedImgUrl;
-    if (!dataUrl) {
-      const res = await generatePngImage();
-      dataUrl = res ? res.dataUrl : null;
+    if (!generatedImgUrl) {
+      renderPosterInstantly();
     }
-    if (dataUrl) {
+    if (generatedImgUrl) {
       const a = document.createElement('a');
-      a.href = dataUrl;
+      a.href = generatedImgUrl;
       a.download = `Klasemen-Lengkap-Bravo-Cup-${new Date().toISOString().slice(0, 10)}.png`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      setInfoMessage('✅ Gambar PNG lengkap berhasil diunduh ke galeri/file!');
+      setInfoMessage('✅ Gambar PNG resolusi tinggi berhasil diunduh!');
     }
   };
 
   // Share directly to WhatsApp
   const handleShareToWhatsApp = async () => {
-    const textCaption = buildAllStandingsText();
     let blob = generatedBlob;
     let dataUrl = generatedImgUrl;
 
     if (!blob || !dataUrl) {
-      const res = await generatePngImage();
-      if (res) {
-        blob = res.blob;
-        dataUrl = res.dataUrl;
-      }
-    }
-
-    if (!blob || !dataUrl) {
-      setInfoMessage('Gagal menyiapkan gambar PNG.');
+      renderPosterInstantly();
       return;
     }
 
+    const textCaption = buildAllStandingsText();
     const fileName = `Klasemen-Lengkap-Bravo-Cup-${new Date().toISOString().slice(0, 10)}.png`;
     const imageFile = new File([blob], fileName, { type: 'image/png' });
 
-    // Use Web Share API if supported on mobile (iOS Safari / Android Chrome)
+    // Use Web Share API on mobile (iOS / Android)
     if (navigator.canShare && navigator.canShare({ files: [imageFile] })) {
       try {
         await navigator.share({
@@ -208,17 +160,16 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
           title: `Klasemen Lengkap ${tournamentName}`,
           text: `📊 Klasemen Lengkap ${tournamentName} (MD & WD)`,
         });
-        setInfoMessage('Berhasil membuka menu share WhatsApp!');
+        setInfoMessage('Berhasil membuka menu bagikan WhatsApp!');
         return;
       } catch (err: any) {
         if (err.name !== 'AbortError') {
-          console.warn('Share error fallback:', err);
+          console.warn('Share sheet dismissed or fallback:', err);
         }
       }
     }
 
-    // Fallback for browsers that don't support file sharing (e.g. desktop):
-    // 1. Download image automatically
+    // Fallback: auto download + open WhatsApp web/app
     const a = document.createElement('a');
     a.href = dataUrl;
     a.download = fileName;
@@ -226,7 +177,6 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
     a.click();
     document.body.removeChild(a);
 
-    // 2. Open WhatsApp with formatted text
     const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(textCaption)}`;
     const link = document.createElement('a');
     link.href = waUrl;
@@ -237,7 +187,7 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
     document.body.removeChild(link);
 
     setInfoMessage(
-      '📥 Gambar PNG telah otomatis diunduh! Silakan tempelkan/lampirkan file gambar ke chat WhatsApp yang baru terbuka.'
+      '📥 Gambar PNG telah otomatis diunduh! Silakan tempelkan file gambar ke chat WhatsApp yang terbuka.'
     );
   };
 
@@ -252,61 +202,6 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
     }
   };
 
-  // Render Table Rows with fixed styling
-  const renderTableRows = (rows: StandingRow[]) => {
-    if (rows.length === 0) {
-      return (
-        <tr>
-          <td colSpan={7} className="text-center py-2.5 text-slate-400 text-xs italic">
-            Belum ada pasangan terdaftar
-          </td>
-        </tr>
-      );
-    }
-
-    return rows.map((r, i) => {
-      const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}`;
-      const diffFormatted = r.pointDiff > 0 ? `+${r.pointDiff}` : `${r.pointDiff}`;
-      const isTop = i === 0;
-
-      return (
-        <tr
-          key={r.team.id}
-          className={`border-b border-slate-200 text-xs ${
-            isTop ? 'bg-amber-50/60 font-semibold' : i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'
-          }`}
-        >
-          <td className="py-2 px-2 text-center font-bold text-slate-700">{medal}</td>
-          <td className="py-2 px-2.5 font-bold text-slate-900 truncate max-w-[150px]">
-            <div>{r.team.name}</div>
-            <div className="text-[10px] text-slate-500 font-normal truncate">
-              {r.team.player1} & {r.team.player2}
-            </div>
-          </td>
-          <td className="py-2 px-2 text-center text-slate-600 font-medium">{r.played}</td>
-          <td className="py-2 px-2 text-center font-bold text-emerald-700">{r.won}</td>
-          <td className="py-2 px-2 text-center font-bold text-rose-700">{r.lost}</td>
-          <td className="py-2 px-2 text-center text-slate-600 text-[11px] font-medium">
-            {r.pointsWon}-{r.pointsLost}
-          </td>
-          <td className="py-2 px-2 text-center font-black text-xs">
-            <span
-              className={
-                r.pointDiff > 0
-                  ? 'text-emerald-700'
-                  : r.pointDiff < 0
-                  ? 'text-rose-700'
-                  : 'text-slate-500'
-              }
-            >
-              {diffFormatted}
-            </span>
-          </td>
-        </tr>
-      );
-    });
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/70 backdrop-blur-md overflow-y-auto">
       <div className="relative w-full max-w-4xl bg-white border border-slate-200 rounded-3xl shadow-2xl p-4 sm:p-6 my-auto max-h-[94vh] flex flex-col text-slate-800">
@@ -319,13 +214,10 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
             </div>
             <div>
               <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight flex items-center gap-2">
-                Bagikan Rekap Klasemen 1 Halaman (PNG)
-                <span className="text-[11px] font-bold px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full">
-                  WhatsApp Ready
-                </span>
+                Bagikan Rekap Klasemen
               </h3>
               <p className="text-xs text-slate-500">
-                Gambar lengkap tidak terpotong (Ganda Putra & Putri seluruh pool)
+                Format gambar 1 halaman penuh (Ganda Putra &amp; Ganda Putri semua pool)
               </p>
             </div>
           </div>
@@ -343,18 +235,16 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
             {/* Primary WA Share Button */}
             <button
               onClick={handleShareToWhatsApp}
-              disabled={isGenerating}
-              className="px-4 py-2 bg-[#25D366] hover:bg-[#20ba5a] active:scale-95 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-sm flex items-center gap-2 disabled:opacity-50"
+              className="px-4 py-2 bg-[#25D366] hover:bg-[#20ba5a] active:scale-95 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-sm flex items-center gap-2 cursor-pointer"
             >
               <Share2 size={16} />
-              <span>{isGenerating ? 'Menyiapkan Gambar...' : 'Kirim Gambar ke WhatsApp'}</span>
+              <span>Kirim Gambar ke WhatsApp</span>
             </button>
 
             {/* Direct Download PNG Button */}
             <button
               onClick={handleDownloadPng}
-              disabled={isGenerating}
-              className="px-3.5 py-2 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-sm flex items-center gap-1.5 disabled:opacity-50"
+              className="px-3.5 py-2 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-sm flex items-center gap-1.5 cursor-pointer"
             >
               <Download size={15} />
               <span>Unduh PNG</span>
@@ -362,19 +252,18 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
 
             {/* Re-generate */}
             <button
-              onClick={generatePngImage}
-              disabled={isGenerating}
-              className="px-3 py-2 bg-white hover:bg-slate-100 border border-slate-300 active:scale-95 text-slate-700 font-semibold text-xs rounded-xl transition flex items-center gap-1.5 disabled:opacity-50"
+              onClick={renderPosterInstantly}
+              className="px-3 py-2 bg-white hover:bg-slate-100 border border-slate-300 active:scale-95 text-slate-700 font-semibold text-xs rounded-xl transition flex items-center gap-1.5 cursor-pointer"
               title="Perbarui Gambar PNG"
             >
-              <RefreshCw size={14} className={isGenerating ? 'animate-spin' : ''} />
-              <span>Perbarui</span>
+              <RefreshCw size={14} />
+              <span>Segarkan</span>
             </button>
 
             {/* Copy Text Summary */}
             <button
               onClick={handleCopyText}
-              className="px-3 py-2 bg-white hover:bg-slate-100 border border-slate-300 active:scale-95 text-slate-700 font-semibold text-xs rounded-xl transition flex items-center gap-1.5"
+              className="px-3 py-2 bg-white hover:bg-slate-100 border border-slate-300 active:scale-95 text-slate-700 font-semibold text-xs rounded-xl transition flex items-center gap-1.5 cursor-pointer"
             >
               {copySuccess ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
               <span>{copySuccess ? 'Tersalin!' : 'Salin Teks'}</span>
@@ -383,7 +272,7 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
 
           <div className="text-[11px] text-slate-500 flex items-center gap-1">
             <Sparkles size={13} className="text-amber-500" />
-            <span>Format PNG Resolusi Penuh</span>
+            <span>Resolusi Tinggi HD • Ringan &amp; Cepat</span>
           </div>
         </div>
 
@@ -395,214 +284,36 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
           </div>
         )}
 
-        {/* PREVIEW CONTAINER */}
-        <div className="flex-1 overflow-y-auto bg-slate-100 p-2 sm:p-4 rounded-2xl border border-slate-200 flex flex-col items-center">
-          {/* If image is already generated, show the true rendered PNG image */}
+        {/* Scrollable Preview Area */}
+        <div className="flex-1 overflow-y-auto bg-slate-100 p-2 sm:p-4 rounded-2xl border border-slate-200 flex flex-col items-center justify-start">
           {generatedImgUrl ? (
             <div className="w-full flex flex-col items-center">
               <div className="mb-2 text-xs font-semibold text-slate-500 flex items-center gap-1.5">
                 <Check size={14} className="text-emerald-600" />
-                <span>Hasil Preview PNG (Siap Kirim & Tidak Terpotong):</span>
+                <span>Pratinjau Gambar PNG (Siap Kirim ke WhatsApp):</span>
               </div>
               <img
                 src={generatedImgUrl}
                 alt="Rekap Klasemen Lengkap"
-                className="w-full max-w-[780px] rounded-2xl shadow-md border border-slate-300 bg-white"
+                className="w-full max-w-[820px] rounded-2xl shadow-md border border-slate-300 bg-white"
               />
             </div>
           ) : (
             <div className="py-16 flex flex-col items-center text-slate-400">
               <RefreshCw size={28} className="animate-spin text-[#007DCC] mb-3" />
-              <p className="text-xs font-semibold text-slate-600">Menyusun dan merender gambar PNG resolusi penuh...</p>
-              <p className="text-[11px] text-slate-400 mt-1">Harap tunggu sebentar.</p>
+              <p className="text-xs font-semibold text-slate-600">Menyusun gambar...</p>
             </div>
           )}
-
-          {/* HIDDEN FIXED-LAYOUT POSTER ELEMENT (Target of html2canvas) */}
-          {/* Placed in an invisible container so it always has pure 780px width & unclipped layout on ALL devices */}
-          <div
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: '-9999px',
-              width: '780px',
-              backgroundColor: '#ffffff',
-              zIndex: -9999,
-              pointerEvents: 'none',
-              overflow: 'visible',
-            }}
-          >
-            <div
-              ref={posterRef}
-              style={{
-                width: '780px',
-                backgroundColor: '#ffffff',
-                color: '#0f172a',
-                padding: '28px',
-                boxSizing: 'border-box',
-                fontFamily: 'system-ui, -apple-system, sans-serif',
-              }}
-            >
-              {/* Poster Header */}
-              <div className="border-b-2 border-slate-900 pb-3.5 mb-4 flex items-center justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-2xl">🏸</span>
-                    <h2 className="text-xl font-black text-slate-950 uppercase tracking-tight">
-                      {tournamentName}
-                    </h2>
-                  </div>
-                  <p className="text-xs font-bold text-[#007DCC] tracking-wide uppercase">
-                    Rekap Klasemen Resmi Seluruh Pool • Sistem Skor Maksimal 30 Poin
-                  </p>
-                </div>
-
-                <div className="text-right shrink-0">
-                  <span className="inline-block px-2.5 py-1 bg-slate-900 text-white font-extrabold text-[10px] rounded-md tracking-wider">
-                    UPDATE RESMI
-                  </span>
-                  <p className="text-[11px] font-semibold text-slate-700 mt-1">
-                    {currentDateStr}
-                  </p>
-                  <p className="text-[10px] text-slate-500">
-                    Pukul {currentTimeStr} WIB
-                  </p>
-                </div>
-              </div>
-
-              {/* SECTION 1: GANDA PUTRA (MENS DOUBLES - MD) */}
-              <div className="mb-4">
-                <div className="flex items-center gap-2 mb-2 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-xl">
-                  <span className="text-sm">🏸</span>
-                  <h3 className="text-xs font-black text-[#007DCC] uppercase tracking-wider">
-                    Kategori Ganda Putra (Men&apos;s Doubles - MD)
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3.5">
-                  {/* MD GRUP A */}
-                  <div className="border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
-                    <div className="bg-slate-900 text-white px-3 py-1.5 flex items-center justify-between">
-                      <span className="font-extrabold text-[11px] tracking-wide">GRUP A (PUTRA)</span>
-                      <span className="text-[10px] font-medium text-slate-300">4 Pasangan</span>
-                    </div>
-                    <table className="w-full text-left border-collapse">
-                      <thead>
-                        <tr className="bg-slate-100 text-[10px] font-black text-slate-600 uppercase border-b border-slate-200">
-                          <th className="py-1 px-2 text-center w-8">#</th>
-                          <th className="py-1 px-2.5">Pasangan</th>
-                          <th className="py-1 px-2 text-center w-8">MN</th>
-                          <th className="py-1 px-2 text-center w-8 text-emerald-700">M</th>
-                          <th className="py-1 px-2 text-center w-8 text-rose-700">K</th>
-                          <th className="py-1 px-2 text-center w-14">Poin</th>
-                          <th className="py-1 px-2 text-center w-12 font-black">+/-</th>
-                        </tr>
-                      </thead>
-                      <tbody>{renderTableRows(mdStandingsA)}</tbody>
-                    </table>
-                  </div>
-
-                  {/* MD GRUP B */}
-                  <div className="border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
-                    <div className="bg-slate-900 text-white px-3 py-1.5 flex items-center justify-between">
-                      <span className="font-extrabold text-[11px] tracking-wide">GRUP B (PUTRA)</span>
-                      <span className="text-[10px] font-medium text-slate-300">4 Pasangan</span>
-                    </div>
-                    <table className="w-full text-left border-collapse">
-                      <thead>
-                        <tr className="bg-slate-100 text-[10px] font-black text-slate-600 uppercase border-b border-slate-200">
-                          <th className="py-1 px-2 text-center w-8">#</th>
-                          <th className="py-1 px-2.5">Pasangan</th>
-                          <th className="py-1 px-2 text-center w-8">MN</th>
-                          <th className="py-1 px-2 text-center w-8 text-emerald-700">M</th>
-                          <th className="py-1 px-2 text-center w-8 text-rose-700">K</th>
-                          <th className="py-1 px-2 text-center w-14">Poin</th>
-                          <th className="py-1 px-2 text-center w-12 font-black">+/-</th>
-                        </tr>
-                      </thead>
-                      <tbody>{renderTableRows(mdStandingsB)}</tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-              {/* SECTION 2: GANDA PUTRI (WOMENS DOUBLES - WD) */}
-              <div className="mb-4">
-                <div className="flex items-center gap-2 mb-2 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-xl">
-                  <span className="text-sm">🏸</span>
-                  <h3 className="text-xs font-black text-[#D10056] uppercase tracking-wider">
-                    Kategori Ganda Putri (Women&apos;s Doubles - WD)
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3.5">
-                  {/* WD GRUP A */}
-                  <div className="border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
-                    <div className="bg-[#D10056] text-white px-3 py-1.5 flex items-center justify-between">
-                      <span className="font-extrabold text-[11px] tracking-wide">GRUP A (PUTRI)</span>
-                      <span className="text-[10px] font-medium text-rose-100">3 Pasangan</span>
-                    </div>
-                    <table className="w-full text-left border-collapse">
-                      <thead>
-                        <tr className="bg-slate-100 text-[10px] font-black text-slate-600 uppercase border-b border-slate-200">
-                          <th className="py-1 px-2 text-center w-8">#</th>
-                          <th className="py-1 px-2.5">Pasangan</th>
-                          <th className="py-1 px-2 text-center w-8">MN</th>
-                          <th className="py-1 px-2 text-center w-8 text-emerald-700">M</th>
-                          <th className="py-1 px-2 text-center w-8 text-rose-700">K</th>
-                          <th className="py-1 px-2 text-center w-14">Poin</th>
-                          <th className="py-1 px-2 text-center w-12 font-black">+/-</th>
-                        </tr>
-                      </thead>
-                      <tbody>{renderTableRows(wdStandingsA)}</tbody>
-                    </table>
-                  </div>
-
-                  {/* WD GRUP B */}
-                  <div className="border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
-                    <div className="bg-[#D10056] text-white px-3 py-1.5 flex items-center justify-between">
-                      <span className="font-extrabold text-[11px] tracking-wide">GRUP B (PUTRI)</span>
-                      <span className="text-[10px] font-medium text-rose-100">3 Pasangan</span>
-                    </div>
-                    <table className="w-full text-left border-collapse">
-                      <thead>
-                        <tr className="bg-slate-100 text-[10px] font-black text-slate-600 uppercase border-b border-slate-200">
-                          <th className="py-1 px-2 text-center w-8">#</th>
-                          <th className="py-1 px-2.5">Pasangan</th>
-                          <th className="py-1 px-2 text-center w-8">MN</th>
-                          <th className="py-1 px-2 text-center w-8 text-emerald-700">M</th>
-                          <th className="py-1 px-2 text-center w-8 text-rose-700">K</th>
-                          <th className="py-1 px-2 text-center w-14">Poin</th>
-                          <th className="py-1 px-2 text-center w-12 font-black">+/-</th>
-                        </tr>
-                      </thead>
-                      <tbody>{renderTableRows(wdStandingsB)}</tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-              {/* Poster Footer */}
-              <div className="pt-2.5 border-t border-slate-200 flex items-center justify-between text-[10px] text-slate-500">
-                <p>
-                  <strong>Aturan Penentuan Peringkat:</strong> 1. Jumlah Kemenangan (M) • 2. Selisih Poin (+/-) = Poin Masuk - Poin Lawan.
-                </p>
-                <p className="font-bold text-slate-700">
-                  Badminton Biro Advokasi Cup (Bravo Cup) 🏸
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Modal Bottom Close */}
         <div className="pt-3 mt-2 border-t border-slate-100 flex items-center justify-between shrink-0">
           <p className="text-xs text-slate-500">
-            💡 <em>Pilih <strong>&quot;Kirim Gambar ke WhatsApp&quot;</strong> atau <strong>&quot;Unduh PNG&quot;</strong> untuk menyimpan gambar rekap.</em>
+            💡 <em>Pilih <strong>&quot;Kirim Gambar ke WhatsApp&quot;</strong> untuk mengirim rekap gambar langsung.</em>
           </p>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition"
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition cursor-pointer"
           >
             Tutup
           </button>

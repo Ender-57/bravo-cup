@@ -1,59 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <!-- Background Circle -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00A3FF"/>
-      <stop offset="100%" stop-color="#005B99"/>
-    </linearGradient>
-    
-    <!-- Racket Frame Gradient -->
-    <linearGradient id="racketRim" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- Feather gradients -->
+    <linearGradient id="featherGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#E2E8F0"/>
+      <stop offset="60%" stop-color="#E2E8F0"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+
+    <linearGradient id="featherGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="50%" stop-color="#E2E8F0"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
     </linearGradient>
 
     <linearGradient id="corkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FDE047"/>
-      <stop offset="100%" stop-color="#EA580C"/>
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="40%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
     </linearGradient>
+
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="8" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.15"/>
+    </filter>
   </defs>
 
-  <!-- Circular Base Badge for High Visibility on Dark & Light Browser Tabs -->
-  <circle cx="64" cy="64" r="62" fill="url(#bgGrad)" stroke="#FFFFFF" stroke-width="4"/>
+  <g filter="url(#subtleShadow)">
+    <!-- FEATHER 4 (Rightmost bottom feather) -->
+    <path d="M220 380 L380 230 C460 300 480 320 460 340 C430 370 300 440 220 380 Z" fill="#93C5FD" fill-opacity="0.3"/>
+    <path d="M220 370 C280 360 400 310 470 260 C495 240 485 220 460 215 C410 210 270 330 200 360 Z" fill="#CBD5E1" fill-opacity="0.6"/>
 
-  <!-- RACKET -->
-  <g transform="rotate(-15 64 64)">
-    <!-- Racket Shaft & Handle -->
-    <line x1="56" y1="70" x2="26" y2="106" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/>
-    <line x1="28" y1="104" x2="16" y2="118" stroke="#0F172A" stroke-width="10" stroke-linecap="round"/>
-    <!-- Grip wraps -->
-    <line x1="26" y1="106" x2="23" y2="110" stroke="#38BDF8" stroke-width="3"/>
-    <line x1="21" y1="112" x2="18" y2="116" stroke="#38BDF8" stroke-width="3"/>
+    <!-- FEATHER 3 (Middle-right feather) -->
+    <path d="M185 345 C230 280 370 170 425 180 C445 185 440 210 415 235 C360 290 230 395 185 345 Z" fill="#DBEAFE" fill-opacity="0.85"/>
 
-    <!-- T-Joint -->
-    <circle cx="56" cy="70" r="5" fill="#FFFFFF"/>
+    <!-- FEATHER 2 (Middle-left feather) -->
+    <path d="M150 310 C180 220 285 100 340 100 C365 100 370 120 345 155 C300 220 190 350 150 310 Z" fill="#E2E8F0"/>
 
-    <!-- Racket Head Rim -->
-    <ellipse cx="82" cy="40" rx="28" ry="32" fill="#0369A1" fill-opacity="0.4" stroke="url(#racketRim)" stroke-width="7"/>
-
-    <!-- String Grid (Bold, clean lines) -->
-    <line x1="68" y1="24" x2="96" y2="56" stroke="#FFFFFF" stroke-width="2.5" stroke-opacity="0.8"/>
-    <line x1="60" y1="36" x2="88" y2="68" stroke="#FFFFFF" stroke-width="2.5" stroke-opacity="0.8"/>
-    <line x1="76" y1="14" x2="104" y2="44" stroke="#FFFFFF" stroke-width="2.5" stroke-opacity="0.8"/>
+    <!-- FEATHER 1 (Top-leftmost main feather) -->
+    <path d="M120 280 C150 180 210 30 245 40 C270 50 270 80 235 135 C190 210 140 310 120 280 Z" fill="#F1F5F9"/>
     
-    <line x1="96" y1="24" x2="68" y2="56" stroke="#FFFFFF" stroke-width="2.5" stroke-opacity="0.8"/>
-    <line x1="88" y1="14" x2="60" y2="44" stroke="#FFFFFF" stroke-width="2.5" stroke-opacity="0.8"/>
-    <line x1="104" y1="36" x2="76" y2="68" stroke="#FFFFFF" stroke-width="2.5" stroke-opacity="0.8"/>
-  </g>
+    <!-- Feather 1 Highlight Stripe -->
+    <path d="M175 145 C190 105 210 80 215 85 C220 90 205 120 190 155 C185 165 170 160 175 145 Z" fill="#FFFFFF" fill-opacity="0.9"/>
 
-  <!-- SHUTTLECOCK (Kok Badminton) -->
-  <g transform="translate(34, 22) scale(0.95) rotate(-25)">
-    <!-- White Feathers -->
-    <polygon points="12,18 28,0 36,8 20,26" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
-    <polygon points="18,24 34,6 42,14 26,32" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.5"/>
-    <!-- Feather Ribbon -->
-    <path d="M22,14 Q30,20 38,12" stroke="#007DCC" stroke-width="2.5" fill="none"/>
-    <!-- Cork / Tip -->
-    <circle cx="12" cy="28" r="8" fill="url(#corkGrad)" stroke="#B45309" stroke-width="1.5"/>
+    <!-- Feather main base body -->
+    <path d="M100 280 C150 150 220 45 250 50 C280 60 480 230 460 265 C430 320 250 420 180 390 Z" fill="url(#featherGrad1)" fill-opacity="0.95"/>
+
+    <!-- Feather separation grooves & ribs -->
+    <!-- Rib 1 -->
+    <path d="M150 310 C185 230 240 120 265 65" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round"/>
+    <!-- Rib 2 -->
+    <path d="M180 345 C230 255 315 170 365 110" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round"/>
+    <!-- Rib 3 -->
+    <path d="M210 375 C275 300 375 225 435 185" stroke="#94A3B8" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Feather Highlights Overlay -->
+    <path d="M170 140 C180 110 200 80 210 85 C215 90 200 120 185 150 Z" fill="#FFFFFF"/>
+
+    <!-- COLLAR / RIBBON -->
+    <!-- Upper Dark Band (Charcoal Gray) -->
+    <path d="M102 284 L180 392 L228 358 L148 250 Z" fill="#4B5563"/>
+    
+    <!-- Lower Band (Bright Red) -->
+    <path d="M82 298 L160 406 L180 392 L102 284 Z" fill="#EF4444"/>
+
+    <!-- CORK / HEAD (Hemispherical Base) -->
+    <path d="M82 298 C45 325 15 370 25 415 C35 460 90 480 135 445 C145 435 154 421 160 406 Z" fill="url(#corkGrad)"/>
+
+    <!-- Cork Shading & Depth -->
+    <path d="M40 435 C65 470 110 470 135 445 C145 435 154 421 160 406 L130 406 C100 440 60 440 40 435 Z" fill="#94A3B8" fill-opacity="0.4"/>
+
+    <!-- Cork Curved White Highlight Reflection -->
+    <path d="M52 365 C48 385 54 415 65 430 C68 434 62 438 58 433 C45 415 38 380 44 360 C46 354 54 358 52 365 Z" fill="#FFFFFF" fill-opacity="0.85"/>
   </g>
 </svg>

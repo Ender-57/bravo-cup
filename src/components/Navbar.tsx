@@ -53,9 +53,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <h1 className="text-base sm:text-lg font-black tracking-tight text-slate-900">
                   Badminton Biro Advokasi Cup
                 </h1>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FFB900]/20 text-[#B2054C] border border-[#FFB900]/40">
-                  30 POIN
-                </span>
               </div>
               <p className="text-[11px] text-slate-500 font-medium truncate max-w-[240px] sm:max-w-none">
                 {tournamentName}

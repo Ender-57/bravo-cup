@@ -1,0 +1,8 @@
+{
+  "name": "Bravo Cup",
+  "description": "Aplikasi pengelolaan turnamen & pencatatan skor badminton Ganda Putra & Putri dengan klasemen grup, PIN admin, dan share WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

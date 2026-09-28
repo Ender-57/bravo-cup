@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "TournamentSettings": {
+      "title": "TournamentSettings",
+      "description": "Global settings and metadata for the tournament",
+      "type": "object",
+      "properties": {
+        "tournamentName": { "type": "string" },
+        "adminPin": { "type": "string" },
+        "maxPoints": { "type": "number" },
+        "pointsToWin": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["tournamentName", "maxPoints"]
+    },
+    "PlayerPair": {
+      "title": "PlayerPair",
+      "description": "Double pairing participating in tournament",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "player1": { "type": "string" },
+        "player2": { "type": "string" },
+        "category": { "type": "string" },
+        "group": { "type": "string" },
+        "clubOrOrigin": { "type": "string" },
+        "avatarColor": { "type": "string" }
+      },
+      "required": ["id", "name", "player1", "player2", "category", "group"]
+    },
+    "Match": {
+      "title": "Match",
+      "description": "Badminton match between two player pairs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "category": { "type": "string" },
+        "group": { "type": "string" },
+        "teamAId": { "type": "string" },
+        "teamBId": { "type": "string" },
+        "court": { "type": "string" },
+        "status": { "type": "string" },
+        "currentSet": { "type": "number" },
+        "maxPoints": { "type": "number" },
+        "servingTeam": { "type": "string" },
+        "winnerTeamId": { "type": "string" },
+        "startedAt": { "type": "number" },
+        "finishedAt": { "type": "number" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "code", "category", "group", "teamAId", "teamBId", "court", "status"]
+    }
+  },
+  "firestore": {
+    "/settings/{settingId}": {
+      "schema": "TournamentSettings",
+      "description": "Tournament configuration settings"
+    },
+    "/teams/{teamId}": {
+      "schema": "PlayerPair",
+      "description": "Participating player pairs in Men's and Women's doubles"
+    },
+    "/matches/{matchId}": {
+      "schema": "Match",
+      "description": "Tournament matches, scores, and status"
+    }
+  }
+}

@@ -483,10 +483,22 @@ export default function App() {
       {/* Footer */}
       <footer className="mt-auto border-t border-slate-200 bg-white py-5 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p>© 2026 Badminton Biro Advokasi Cup • Sistem Skor Maksimal 30 Poin & Klasemen Selisih Poin</p>
-          <p className="flex items-center gap-1 text-[11px] text-slate-600 font-medium">
-            <span>Tersimpan otomatis • Share cepat WhatsApp</span> 🏸
-          </p>
+          <p>© 2026 Badminton Biro Advokasi Cup • Sistem Skor Maksimal 30 Poin &amp; Klasemen Selisih Poin</p>
+          <div className="flex flex-col sm:flex-row items-center gap-2 text-[11px] text-slate-600 font-medium">
+            <span className="flex items-center gap-1">
+              <span>Tersimpan otomatis • Share cepat WhatsApp</span> 🏸
+            </span>
+            <span className="hidden sm:inline text-slate-300">•</span>
+            <a
+              href="https://www.flaticon.com/free-icons/badminton"
+              title="badminton icons"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-[#007DCC] transition underline text-[10px]"
+            >
+              Badminton icons created by Magnific - Flaticon
+            </a>
+          </div>
         </div>
       </footer>
 

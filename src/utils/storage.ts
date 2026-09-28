@@ -1,10 +1,10 @@
 import { AppSettings, Match, PlayerPair } from '../types';
 
 const STORAGE_KEYS = {
-  TEAMS: 'badminton_bravo_teams_v3',
-  MATCHES: 'badminton_bravo_matches_v3',
-  SETTINGS: 'badminton_bravo_settings_v3',
-  ADMIN_SESSION: 'badminton_bravo_admin_session_v3',
+  TEAMS: 'badminton_bravo_teams_v4',
+  MATCHES: 'badminton_bravo_matches_v4',
+  SETTINGS: 'badminton_bravo_settings_v4',
+  ADMIN_SESSION: 'badminton_bravo_admin_session_v4',
 };
 
 export const INITIAL_SETTINGS: AppSettings = {
@@ -100,7 +100,7 @@ export const INITIAL_TEAMS: PlayerPair[] = [
     avatarColor: 'from-teal-500 to-cyan-600',
   },
 
-  // Ganda Putri (Womens Double) - Grup A (Senin sore)
+  // Ganda Putri (Womens Double) - Grup A
   {
     id: 'wd-a1',
     name: 'Kice / Nurul',
@@ -108,7 +108,7 @@ export const INITIAL_TEAMS: PlayerPair[] = [
     player2: 'Nurul',
     category: 'WD',
     group: 'Grup A',
-    clubOrOrigin: 'Senin Sore',
+    clubOrOrigin: 'Grup A',
     avatarColor: 'from-pink-500 to-rose-600',
   },
   {
@@ -118,7 +118,7 @@ export const INITIAL_TEAMS: PlayerPair[] = [
     player2: 'Arlina',
     category: 'WD',
     group: 'Grup A',
-    clubOrOrigin: 'Senin Sore',
+    clubOrOrigin: 'Grup A',
     avatarColor: 'from-purple-500 to-indigo-600',
   },
   {
@@ -128,11 +128,11 @@ export const INITIAL_TEAMS: PlayerPair[] = [
     player2: 'Nabila',
     category: 'WD',
     group: 'Grup A',
-    clubOrOrigin: 'Senin Sore',
+    clubOrOrigin: 'Grup A',
     avatarColor: 'from-teal-500 to-emerald-600',
   },
 
-  // Ganda Putri (Womens Double) - Grup B (Rabu pagi)
+  // Ganda Putri (Womens Double) - Grup B
   {
     id: 'wd-b1',
     name: 'Fatih / Tika',
@@ -140,7 +140,7 @@ export const INITIAL_TEAMS: PlayerPair[] = [
     player2: 'Tika',
     category: 'WD',
     group: 'Grup B',
-    clubOrOrigin: 'Rabu Pagi',
+    clubOrOrigin: 'Grup B',
     avatarColor: 'from-fuchsia-500 to-pink-600',
   },
   {
@@ -150,7 +150,7 @@ export const INITIAL_TEAMS: PlayerPair[] = [
     player2: 'Amel',
     category: 'WD',
     group: 'Grup B',
-    clubOrOrigin: 'Rabu Pagi',
+    clubOrOrigin: 'Grup B',
     avatarColor: 'from-orange-500 to-red-600',
   },
   {
@@ -160,7 +160,7 @@ export const INITIAL_TEAMS: PlayerPair[] = [
     player2: 'Isti',
     category: 'WD',
     group: 'Grup B',
-    clubOrOrigin: 'Rabu Pagi',
+    clubOrOrigin: 'Grup B',
     avatarColor: 'from-sky-500 to-cyan-600',
   },
 ];
@@ -350,7 +350,7 @@ export const INITIAL_MATCHES: Match[] = [
     history: [],
   },
 
-  // --- Womens Double - Grup A (Senin Sore) ---
+  // --- Womens Double - Grup A ---
   {
     id: 'match-wd-a1',
     code: 'WD-A01',
@@ -365,7 +365,6 @@ export const INITIAL_MATCHES: Match[] = [
     maxPoints: 30,
     servingTeam: 'A',
     history: [],
-    notes: 'Jadwal: Senin Sore',
   },
   {
     id: 'match-wd-a2',
@@ -381,7 +380,6 @@ export const INITIAL_MATCHES: Match[] = [
     maxPoints: 30,
     servingTeam: 'A',
     history: [],
-    notes: 'Jadwal: Senin Sore',
   },
   {
     id: 'match-wd-a3',
@@ -397,10 +395,9 @@ export const INITIAL_MATCHES: Match[] = [
     maxPoints: 30,
     servingTeam: 'A',
     history: [],
-    notes: 'Jadwal: Senin Sore',
   },
 
-  // --- Womens Double - Grup B (Rabu Pagi) ---
+  // --- Womens Double - Grup B ---
   {
     id: 'match-wd-b1',
     code: 'WD-B01',
@@ -415,7 +412,6 @@ export const INITIAL_MATCHES: Match[] = [
     maxPoints: 30,
     servingTeam: 'A',
     history: [],
-    notes: 'Jadwal: Rabu Pagi',
   },
   {
     id: 'match-wd-b2',
@@ -431,7 +427,6 @@ export const INITIAL_MATCHES: Match[] = [
     maxPoints: 30,
     servingTeam: 'A',
     history: [],
-    notes: 'Jadwal: Rabu Pagi',
   },
   {
     id: 'match-wd-b3',
@@ -447,7 +442,6 @@ export const INITIAL_MATCHES: Match[] = [
     maxPoints: 30,
     servingTeam: 'A',
     history: [],
-    notes: 'Jadwal: Rabu Pagi',
   },
 ];
 
@@ -459,12 +453,17 @@ export function loadTeams(): PlayerPair[] {
       return INITIAL_TEAMS;
     }
     const parsed = JSON.parse(raw);
-    // If old roster was saved, migrate to new roster
-    if (Array.isArray(parsed) && parsed.some(p => p.id === 'md-team-1' || p.player1 === 'Fajar Alfian')) {
-      saveTeams(INITIAL_TEAMS);
-      return INITIAL_TEAMS;
+    if (Array.isArray(parsed)) {
+      // Clean up any old labels
+      const cleaned = parsed.map(t => {
+        if (t.clubOrOrigin === 'Senin Sore' || t.clubOrOrigin === 'Rabu Pagi') {
+          return { ...t, clubOrOrigin: t.group };
+        }
+        return t;
+      });
+      return cleaned;
     }
-    return parsed;
+    return INITIAL_TEAMS;
   } catch {
     return INITIAL_TEAMS;
   }
@@ -486,12 +485,18 @@ export function loadMatches(): Match[] {
       return INITIAL_MATCHES;
     }
     const parsed = JSON.parse(raw);
-    // If old matches were saved, migrate to new matches
-    if (Array.isArray(parsed) && parsed.some(m => m.id === 'match-1' || m.teamAId === 'md-team-1')) {
-      saveMatches(INITIAL_MATCHES);
-      return INITIAL_MATCHES;
+    if (Array.isArray(parsed)) {
+      // Clean up any old match notes
+      const cleaned = parsed.map(m => {
+        if (m.notes && (m.notes.includes('Senin Sore') || m.notes.includes('Rabu Pagi'))) {
+          const { notes, ...rest } = m;
+          return rest as Match;
+        }
+        return m;
+      });
+      return cleaned;
     }
-    return parsed;
+    return INITIAL_MATCHES;
   } catch {
     return INITIAL_MATCHES;
   }

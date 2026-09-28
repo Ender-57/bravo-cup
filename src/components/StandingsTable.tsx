@@ -9,6 +9,7 @@ interface StandingsTableProps {
   matches: Match[];
   category: Category;
   tournamentName: string;
+  onOpenShareAllStandings?: () => void;
 }
 
 export const StandingsTable: React.FC<StandingsTableProps> = ({
@@ -16,6 +17,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
   matches,
   category,
   tournamentName,
+  onOpenShareAllStandings,
 }) => {
   // Filter teams by category
   const categoryTeams = teams.filter(t => t.category === category);
@@ -74,33 +76,41 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
         <div className="flex items-center gap-2 flex-wrap w-full sm:w-auto justify-between sm:justify-end">
           {/* Group Tabs */}
           <div className="flex bg-slate-100 p-1 rounded-2xl border border-slate-200">
-            {groups.map(grp => {
-              const scheduleNote = !isMD 
-                ? (grp.includes('A') ? : grp.includes('B') ? : '')
-                : '';
-              return (
-                <button
-                  key={grp}
-                  onClick={() => setSelectedGroup(grp)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${
-                    activeGroup === grp
-                      ? (isMD ? 'bg-[#007DCC] text-white shadow-sm' : 'bg-[#D10056] text-white shadow-sm')
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  {grp}{scheduleNote}
-                </button>
-              );
-            })}
+            {groups.map(grp => (
+              <button
+                key={grp}
+                onClick={() => setSelectedGroup(grp)}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${
+                  activeGroup === grp
+                    ? (isMD ? 'bg-[#007DCC] text-white shadow-sm' : 'bg-[#D10056] text-white shadow-sm')
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                {grp}
+              </button>
+            ))}
           </div>
 
-          {/* Share to WA Button */}
+          {/* Share All MD & WD Standings as PNG to WA Button */}
+          {onOpenShareAllStandings && (
+            <button
+              onClick={onOpenShareAllStandings}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#25D366] hover:bg-[#20ba5a] active:scale-95 text-white text-xs font-bold rounded-xl transition shadow-sm"
+              title="Bagikan gambar PNG seluruh klasemen MD & WD dalam 1 halaman ke WhatsApp"
+            >
+              <Share2 size={13} />
+              <span>Share Semua Klasemen (PNG)</span>
+            </button>
+          )}
+
+          {/* Share single group to WA Button */}
           <button
             onClick={handleShareGroupStandings}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white text-xs font-bold rounded-xl transition shadow-sm"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 text-xs font-bold rounded-xl transition border border-slate-200"
+            title="Bagikan teks klasemen grup ini ke WhatsApp"
           >
             <Share2 size={13} />
-            <span>Bagikan ke WA</span>
+            <span>Teks {activeGroup}</span>
           </button>
         </div>
       </div>

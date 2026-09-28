@@ -34,6 +34,7 @@ import { CreateMatchModal } from './components/CreateMatchModal';
 import { StandingsTable } from './components/StandingsTable';
 import { MatchSchedule } from './components/MatchSchedule';
 import { MatchHistory } from './components/MatchHistory';
+import { ShareStandingsModal } from './components/ShareStandingsModal';
 
 export default function App() {
   // App State
@@ -54,6 +55,7 @@ export default function App() {
   const [isPinModalOpen, setIsPinModalOpen] = useState<boolean>(false);
   const [isTeamManagerOpen, setIsTeamManagerOpen] = useState<boolean>(false);
   const [isCreateMatchOpen, setIsCreateMatchOpen] = useState<boolean>(false);
+  const [isShareStandingsOpen, setIsShareStandingsOpen] = useState<boolean>(false);
   const [activeScorekeeperMatch, setActiveScorekeeperMatch] = useState<Match | null>(null);
 
   // In-App Toast (Replaces window.alert)
@@ -385,6 +387,14 @@ export default function App() {
 
         {/* Quick Anchor Navigation Strip */}
         <div className="flex items-center gap-2 p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200/80 overflow-x-auto scrollbar-none">
+          <button
+            onClick={() => setIsShareStandingsOpen(true)}
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#25D366] hover:bg-[#20ba5a] active:scale-95 text-white shadow-xs transition flex items-center gap-1.5 shrink-0"
+            title="Bagikan gambar PNG seluruh klasemen MD & WD dalam 1 halaman ke WhatsApp"
+          >
+            <Share2 size={14} />
+            <span>📸 Share Semua Klasemen (PNG WA)</span>
+          </button>
           <a
             href="#klasemen-putra"
             className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#007DCC] shadow-xs transition flex items-center gap-1.5 shrink-0"
@@ -425,6 +435,7 @@ export default function App() {
             matches={matches}
             category="MD"
             tournamentName={settings.tournamentName}
+            onOpenShareAllStandings={() => setIsShareStandingsOpen(true)}
           />
         </section>
 
@@ -435,6 +446,7 @@ export default function App() {
             matches={matches}
             category="WD"
             tournamentName={settings.tournamentName}
+            onOpenShareAllStandings={() => setIsShareStandingsOpen(true)}
           />
         </section>
 
@@ -523,6 +535,15 @@ export default function App() {
           isAdmin={isAdmin}
         />
       )}
+
+      {/* 5. Share All Standings PNG to WhatsApp Modal */}
+      <ShareStandingsModal
+        isOpen={isShareStandingsOpen}
+        onClose={() => setIsShareStandingsOpen(false)}
+        teams={teams}
+        matches={matches}
+        tournamentName={settings.tournamentName}
+      />
 
       {/* Floating In-App Toast Notification */}
       {toast && (

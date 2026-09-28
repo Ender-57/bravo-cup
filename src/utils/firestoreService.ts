@@ -107,6 +107,31 @@ export async function seedFirestoreIfEmpty() {
 
       await batch.commit();
       console.log("Firestore Bravo Cup roster migration completed.");
+    } else {
+      // Check and cleanup any leftover "Senin Sore" / "Rabu Pagi" labels in Firestore
+      const teamsWithScheduleLabel = teamsSnap.docs.filter(d => {
+        const data = d.data() as any;
+        return data.clubOrOrigin === 'Senin Sore' || data.clubOrOrigin === 'Rabu Pagi';
+      });
+
+      if (teamsWithScheduleLabel.length > 0) {
+        const updateBatch = writeBatch(db);
+        teamsWithScheduleLabel.forEach(d => {
+          const data = d.data() as any;
+          updateBatch.update(d.ref, { clubOrOrigin: data.group || 'Grup A' });
+        });
+
+        const matchesSnap = await getDocs(collection(db, COLLECTIONS.MATCHES));
+        matchesSnap.docs.forEach(d => {
+          const data = d.data() as any;
+          if (data.notes && (data.notes.includes('Senin Sore') || data.notes.includes('Rabu Pagi'))) {
+            updateBatch.update(d.ref, { notes: '' });
+          }
+        });
+
+        await updateBatch.commit();
+        console.log("Firestore schedule labels cleaned up.");
+      }
     }
     hasCheckedSeed = true;
   } catch (error) {

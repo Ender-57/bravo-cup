@@ -17,15 +17,3 @@ export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getA
 
 // Initialize Cloud Firestore with specified databaseId
 export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
-
-// Test connection on boot per Firebase skill guidelines
-async function testConnection() {
-  try {
-    await getDocFromServer(doc(db, 'test', 'connection'));
-  } catch (error) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.warn("Firestore offline or waiting for initial connection...");
-    }
-  }
-}
-testConnection();

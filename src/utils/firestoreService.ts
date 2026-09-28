@@ -63,15 +63,31 @@ export function subscribeToMatches(onData: (matches: Match[]) => void) {
   });
 }
 
+// In-memory flags to prevent redundant calls and quota exhaustion
+let isSeeding = false;
+let hasCheckedSeed = false;
+const matchDebounceTimers: Record<string, ReturnType<typeof setTimeout>> = {};
+
 /**
- * Seed Firestore with initial tournament data if empty
+ * Seed Firestore with initial tournament data if empty or migrate if old roster detected
  */
 export async function seedFirestoreIfEmpty() {
+  if (hasCheckedSeed || isSeeding) return;
+  isSeeding = true;
   try {
     const teamsSnap = await getDocs(collection(db, COLLECTIONS.TEAMS));
-    if (teamsSnap.empty) {
-      console.log("Seeding Firestore with initial tournament data...");
+    const hasOldRoster = !teamsSnap.empty && teamsSnap.docs.some(d => d.id === 'md-team-1' || (d.data() as any).player1 === 'Fajar Alfian');
+
+    if (teamsSnap.empty || hasOldRoster) {
+      console.log("Seeding / migrating Firestore to Bravo Cup roster...");
       const batch = writeBatch(db);
+
+      // Clean up old teams if migrating
+      if (hasOldRoster) {
+        teamsSnap.docs.forEach(d => batch.delete(d.ref));
+        const matchesSnap = await getDocs(collection(db, COLLECTIONS.MATCHES));
+        matchesSnap.docs.forEach(d => batch.delete(d.ref));
+      }
 
       // Seed settings
       const settingsRef = doc(db, COLLECTIONS.SETTINGS, SETTINGS_DOC_ID);
@@ -90,23 +106,49 @@ export async function seedFirestoreIfEmpty() {
       });
 
       await batch.commit();
-      console.log("Firestore seeding completed.");
+      console.log("Firestore Bravo Cup roster migration completed.");
     }
+    hasCheckedSeed = true;
   } catch (error) {
     console.warn("Firestore seeding check:", error);
+  } finally {
+    isSeeding = false;
   }
 }
 
 /**
- * Save or update a match in Firestore
+ * Save or update a match in Firestore with debouncing
+ * (Protects against rapid writes during live score updates exceeding Firestore rate limits)
  */
-export async function saveMatchToFirestore(match: Match) {
-  try {
-    const matchRef = doc(db, COLLECTIONS.MATCHES, match.id);
-    await setDoc(matchRef, match);
-  } catch (error) {
-    console.error("Error saving match to Firestore:", error);
+export async function saveMatchToFirestore(match: Match, immediate = false) {
+  if (immediate) {
+    if (matchDebounceTimers[match.id]) {
+      clearTimeout(matchDebounceTimers[match.id]);
+      delete matchDebounceTimers[match.id];
+    }
+    try {
+      const matchRef = doc(db, COLLECTIONS.MATCHES, match.id);
+      await setDoc(matchRef, match);
+    } catch (error) {
+      console.warn("Error saving match to Firestore:", error);
+    }
+    return;
   }
+
+  // Debounce writes by 400ms to ensure rapid point clicks don't flood Firestore
+  if (matchDebounceTimers[match.id]) {
+    clearTimeout(matchDebounceTimers[match.id]);
+  }
+
+  matchDebounceTimers[match.id] = setTimeout(async () => {
+    delete matchDebounceTimers[match.id];
+    try {
+      const matchRef = doc(db, COLLECTIONS.MATCHES, match.id);
+      await setDoc(matchRef, match);
+    } catch (error) {
+      console.warn("Error saving match to Firestore (rate/quota guard):", error);
+    }
+  }, 400);
 }
 
 /**

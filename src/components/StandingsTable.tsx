@@ -74,19 +74,24 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
         <div className="flex items-center gap-2 flex-wrap w-full sm:w-auto justify-between sm:justify-end">
           {/* Group Tabs */}
           <div className="flex bg-slate-100 p-1 rounded-2xl border border-slate-200">
-            {groups.map(grp => (
-              <button
-                key={grp}
-                onClick={() => setSelectedGroup(grp)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${
-                  activeGroup === grp
-                    ? 'bg-[#007DCC] text-white shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                {grp}
-              </button>
-            ))}
+            {groups.map(grp => {
+              const scheduleNote = !isMD 
+                ? (grp.includes('A') ? ' (Senin Sore)' : grp.includes('B') ? ' (Rabu Pagi)' : '')
+                : '';
+              return (
+                <button
+                  key={grp}
+                  onClick={() => setSelectedGroup(grp)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${
+                    activeGroup === grp
+                      ? (isMD ? 'bg-[#007DCC] text-white shadow-sm' : 'bg-[#D10056] text-white shadow-sm')
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  {grp}{scheduleNote}
+                </button>
+              );
+            })}
           </div>
 
           {/* Share to WA Button */}

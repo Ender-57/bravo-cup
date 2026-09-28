@@ -366,22 +366,24 @@ export default function App() {
             </div>
 
             {isAdmin && (
-              <button
-                onClick={() => setIsCreateMatchOpen(true)}
-                className="px-4 py-2.5 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white text-xs font-black rounded-2xl transition shadow-md shadow-blue-500/20 flex items-center gap-1.5"
-              >
-                <Plus size={16} />
-                <span>Buat Laga Baru</span>
-              </button>
-            )}
+              <>
+                <button
+                  onClick={() => setIsCreateMatchOpen(true)}
+                  className="px-4 py-2.5 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white text-xs font-black rounded-2xl transition shadow-md shadow-blue-500/20 flex items-center gap-1.5"
+                >
+                  <Plus size={16} />
+                  <span>Buat Laga Baru</span>
+                </button>
 
-            <button
-              onClick={() => setIsTeamManagerOpen(true)}
-              className="px-3.5 py-2.5 rounded-2xl text-xs font-bold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 transition flex items-center gap-1.5 shadow-xs"
-            >
-              <Users size={15} className="text-[#007DCC]" />
-              <span>Kelola Pasangan</span>
-            </button>
+                <button
+                  onClick={() => setIsTeamManagerOpen(true)}
+                  className="px-3.5 py-2.5 rounded-2xl text-xs font-bold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 transition flex items-center gap-1.5 shadow-xs"
+                >
+                  <Users size={15} className="text-[#007DCC]" />
+                  <span>Kelola Pasangan</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
 

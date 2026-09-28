@@ -113,14 +113,16 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Action Controls & Admin Authentication */}
         <div className="hidden md:flex items-center gap-2">
-          {/* Kelola Pemain */}
-          <button
-            onClick={onOpenTeamManager}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition border border-slate-200"
-          >
-            <Users size={14} className="text-[#007DCC]" />
-            <span>Kelola Tim</span>
-          </button>
+          {/* Kelola Pemain - Admin only */}
+          {isAdmin && (
+            <button
+              onClick={onOpenTeamManager}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition border border-slate-200"
+            >
+              <Users size={14} className="text-[#007DCC]" />
+              <span>Kelola Tim</span>
+            </button>
+          )}
 
           {/* Admin Login / Logout Badge */}
           <button

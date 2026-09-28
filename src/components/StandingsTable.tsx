@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Trophy, Share2, HelpCircle, ArrowUpDown } from 'lucide-react';
+import { Trophy, Share2, ArrowUpDown } from 'lucide-react';
 import { Category, Match, PlayerPair } from '../types';
 import { calculateStandings } from '../utils/standings';
 import { formatStandingsForWA, openWhatsAppShare } from '../utils/whatsapp';
@@ -112,17 +112,6 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
             <Share2 size={13} />
             <span>Teks {activeGroup}</span>
           </button>
-        </div>
-      </div>
-
-      {/* Standings Rule Info Banner */}
-      <div className="mb-4 p-3.5 bg-gradient-to-r from-blue-50/80 to-amber-50/80 border border-blue-100 rounded-2xl flex items-start gap-2.5 text-xs text-slate-700">
-        <HelpCircle size={17} className="text-[#007DCC] shrink-0 mt-0.5" />
-        <div>
-          <span className="font-bold text-[#007DCC]">Aturan Penentuan Peringkat:</span>
-          <p className="text-slate-600 text-[11px] mt-0.5 leading-relaxed">
-            Peringkat ditentukan berdasarkan <strong>Jumlah Poin Kemenangan</strong> dan <strong>Selisih Poin (Poin Masuk - Poin Kalah)</strong>. Contoh: Tim A menang 30 vs Tim B 12, maka selisih poin Tim A adalah <strong className="text-emerald-700">+18</strong> dan Tim B adalah <strong className="text-[#D10056]">-18</strong>.
-          </p>
         </div>
       </div>
 

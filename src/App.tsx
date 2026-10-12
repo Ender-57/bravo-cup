@@ -32,6 +32,7 @@ import { TeamManagerModal } from './components/TeamManagerModal';
 import { ScorekeeperModal } from './components/ScorekeeperModal';
 import { CreateMatchModal } from './components/CreateMatchModal';
 import { StandingsTable } from './components/StandingsTable';
+import { TournamentBracket } from './components/TournamentBracket';
 import { MatchSchedule } from './components/MatchSchedule';
 import { MatchHistory } from './components/MatchHistory';
 import { ShareStandingsModal } from './components/ShareStandingsModal';
@@ -354,8 +355,8 @@ export default function App() {
   // Active Category Teams
   const categoryTeams = teams.filter(t => t.category === currentCategory);
   const categoryMatches = matches.filter(m => m.category === currentCategory);
-  const liveCount = categoryMatches.filter(m => m.status === 'live').length;
-  const finishedCount = categoryMatches.filter(m => m.status === 'finished').length;
+  const totalLiveCount = matches.filter(m => m.status === 'live').length;
+  const totalFinishedCount = matches.filter(m => m.status === 'finished').length;
 
   return (
     <div className="min-h-screen bg-[#F4F7FB] text-slate-800 flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
@@ -404,12 +405,12 @@ export default function App() {
 
             <div className="bg-amber-50 px-3.5 py-2 rounded-2xl border border-amber-200 text-center min-w-[70px]">
               <p className="text-[10px] uppercase font-bold text-[#B2054C]">Live Skor</p>
-              <p className="text-lg font-black text-[#D10056] leading-none mt-1">{liveCount}</p>
+              <p className="text-lg font-black text-[#D10056] leading-none mt-1">{totalLiveCount}</p>
             </div>
 
-            <div className="bg-slate-50 px-3.5 py-2 rounded-2xl border border-slate-200 text-center min-w-[70px]">
-              <p className="text-[10px] uppercase font-bold text-slate-600">Selesai</p>
-              <p className="text-lg font-black text-slate-900 leading-none mt-1">{finishedCount}</p>
+            <div className="bg-emerald-50/80 px-3.5 py-2 rounded-2xl border border-emerald-200 text-center min-w-[70px]">
+              <p className="text-[10px] uppercase font-bold text-emerald-800">Selesai</p>
+              <p className="text-lg font-black text-emerald-700 leading-none mt-1">{totalFinishedCount}</p>
             </div>
 
             {isAdmin && (
@@ -468,12 +469,19 @@ export default function App() {
             <span>2. Klasemen Ganda Putri</span>
           </a>
           <a
+            href="#bagan-fase-gugur"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-amber-600 shadow-xs transition flex items-center gap-1.5 shrink-0"
+          >
+            <Trophy size={14} className="text-amber-500" />
+            <span>3. 🏆 Bagan Semifinal &amp; Final</span>
+          </a>
+          <a
             href="#jadwal-pertandingan"
             className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#007DCC] shadow-xs transition flex items-center gap-1.5 shrink-0"
           >
             <Play size={14} className="text-[#007DCC]" />
-            <span>3. Jadwal & Skor Langsung</span>
-            {liveCount > 0 && (
+            <span>4. Jadwal Pertandingan</span>
+            {totalLiveCount > 0 && (
               <span className="w-2 h-2 rounded-full bg-[#D10056] animate-pulse"></span>
             )}
           </a>
@@ -482,7 +490,7 @@ export default function App() {
             className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#007DCC] shadow-xs transition flex items-center gap-1.5 shrink-0"
           >
             <History size={14} className="text-[#007DCC]" />
-            <span>4. Riwayat Pertandingan ({finishedCount})</span>
+            <span>5. Riwayat Pertandingan ({totalFinishedCount})</span>
           </a>
         </div>
 
@@ -508,7 +516,19 @@ export default function App() {
           />
         </section>
 
-        {/* 3. SECTION: JADWAL & LIVE SCORE */}
+        {/* 3. SECTION: BAGAN FASE GUGUR (SEMIFINAL & FINAL) */}
+        <section id="bagan-fase-gugur" className="scroll-mt-24 space-y-2">
+          <TournamentBracket
+            teams={teams}
+            matches={matches}
+            isAdmin={isAdmin}
+            onOpenScorekeeper={m => setActiveScorekeeperMatch(m)}
+            onOpenDirectScoreInput={handleOpenDirectScoreInput}
+            onSaveMatch={handleSaveDirectScoreResult}
+          />
+        </section>
+
+        {/* 4. SECTION: JADWAL & LIVE SCORE */}
         <section id="jadwal-pertandingan" className="scroll-mt-24">
           <MatchSchedule
             matches={matches}
@@ -524,7 +544,7 @@ export default function App() {
           />
         </section>
 
-        {/* 4. SECTION: RIWAYAT PERTANDINGAN */}
+        {/* 5. SECTION: RIWAYAT PERTANDINGAN */}
         <section id="riwayat-pertandingan" className="scroll-mt-24">
           <MatchHistory
             matches={matches}

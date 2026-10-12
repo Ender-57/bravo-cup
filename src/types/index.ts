@@ -34,6 +34,8 @@ export interface Match {
   code: string;
   category: Category;
   group: string;
+  stage?: 'group' | 'semifinal' | 'final';
+  knockoutRound?: 'SF1' | 'SF2' | 'FINAL';
   teamAId: string;
   teamBId: string;
   court: string;

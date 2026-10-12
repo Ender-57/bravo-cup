@@ -95,6 +95,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>Peringkat Putri</span>
           </button>
           <button
+            onClick={() => handleScroll('bagan-fase-gugur')}
+            className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-amber-600 hover:bg-white transition-all flex items-center gap-1.5 shrink-0"
+          >
+            <Trophy size={13} className="text-amber-500" />
+            <span>Bagan Gugur</span>
+          </button>
+          <button
             onClick={() => handleScroll('jadwal-pertandingan')}
             className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#007DCC] hover:bg-white transition-all flex items-center gap-1.5 shrink-0"
           >

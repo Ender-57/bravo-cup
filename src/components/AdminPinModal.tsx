@@ -453,7 +453,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                       Masukkan PIN Admin
                     </h3>
                     <p className="text-xs text-slate-500 mb-3">
-                      Masukkan 4 digit PIN admin (Bawaan: <strong className="text-[#007DCC]">1234</strong>)
+                      Masukkan 4 digit PIN admin
                     </p>
 
                     {/* Attempt Warning Notice if there are previous failed attempts */}
@@ -570,7 +570,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                 {!isAdmin && (
                   <div>
                     <label className="text-[11px] font-bold text-slate-700 flex items-center justify-between">
-                      <span>PIN Lama (Bawaan: 1234):</span>
+                      <span>PIN Lama:</span>
                       <span className="text-[10px] text-slate-400">4 Digit</span>
                     </label>
                     <div className="relative mt-1">

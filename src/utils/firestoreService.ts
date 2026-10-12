@@ -132,6 +132,41 @@ export async function seedFirestoreIfEmpty() {
         await updateBatch.commit();
         console.log("Firestore schedule labels cleaned up.");
       }
+
+      // Ensure the 5 completed matches and latest team names are synced to Firestore
+      const matchesSnap = await getDocs(collection(db, COLLECTIONS.MATCHES));
+      const syncBatch = writeBatch(db);
+      let hasUpdates = false;
+
+      // Sync team names (Franklin / Roy, Randika / Ikko, Arlina / Mala, Nabila / Gesa)
+      INITIAL_TEAMS.forEach(team => {
+        const existingTeamDoc = teamsSnap.docs.find(d => d.id === team.id);
+        if (existingTeamDoc) {
+          const data = existingTeamDoc.data() as any;
+          if (data.name !== team.name || data.player1 !== team.player1 || data.player2 !== team.player2) {
+            syncBatch.set(doc(db, COLLECTIONS.TEAMS, team.id), team, { merge: true });
+            hasUpdates = true;
+          }
+        }
+      });
+
+      // Sync the 5 finished match results
+      const finishedIds = ['match-md-a4', 'match-wd-b2', 'match-wd-a1', 'match-md-a3', 'match-wd-a2'];
+      finishedIds.forEach(mId => {
+        const existingMatchDoc = matchesSnap.docs.find(d => d.id === mId);
+        const targetMatch = INITIAL_MATCHES.find(m => m.id === mId);
+        if (targetMatch) {
+          if (!existingMatchDoc || existingMatchDoc.data().status !== 'finished') {
+            syncBatch.set(doc(db, COLLECTIONS.MATCHES, mId), targetMatch);
+            hasUpdates = true;
+          }
+        }
+      });
+
+      if (hasUpdates) {
+        await syncBatch.commit();
+        console.log("Firestore successfully synced with 5 finished match results & updated team rosters.");
+      }
     }
     hasCheckedSeed = true;
   } catch (error) {

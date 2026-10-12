@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Trophy, History, Play, Users, Lock, Unlock, 
-  Share2, Plus, Sparkles, AlertCircle
+  Share2, Plus, Sparkles, AlertCircle, CheckSquare
 } from 'lucide-react';
 import { Category, Match, PlayerPair, AppSettings } from './types';
 import { 
@@ -35,6 +35,7 @@ import { StandingsTable } from './components/StandingsTable';
 import { MatchSchedule } from './components/MatchSchedule';
 import { MatchHistory } from './components/MatchHistory';
 import { ShareStandingsModal } from './components/ShareStandingsModal';
+import { DirectScoreInputModal } from './components/DirectScoreInputModal';
 
 export default function App() {
   // App State
@@ -53,10 +54,13 @@ export default function App() {
 
   // Modals
   const [isPinModalOpen, setIsPinModalOpen] = useState<boolean>(false);
+  const [pinModalMode, setPinModalMode] = useState<'login' | 'changePin'>('login');
   const [isTeamManagerOpen, setIsTeamManagerOpen] = useState<boolean>(false);
   const [isCreateMatchOpen, setIsCreateMatchOpen] = useState<boolean>(false);
   const [isShareStandingsOpen, setIsShareStandingsOpen] = useState<boolean>(false);
   const [activeScorekeeperMatch, setActiveScorekeeperMatch] = useState<Match | null>(null);
+  const [isDirectScoreModalOpen, setIsDirectScoreModalOpen] = useState<boolean>(false);
+  const [targetDirectScoreMatch, setTargetDirectScoreMatch] = useState<Match | null>(null);
 
   // In-App Toast (Replaces window.alert)
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
@@ -121,17 +125,53 @@ export default function App() {
   const handleAdminLogin = () => {
     setIsAdmin(true);
     sessionStorage.setItem('badminton_admin_logged', 'true');
+    showToast('Masuk sebagai Admin berhasil!', 'success');
   };
 
   const handleAdminLogout = () => {
     setIsAdmin(false);
     sessionStorage.removeItem('badminton_admin_logged');
+    showToast('Keluar dari Mode Admin.', 'info');
+  };
+
+  const handleOpenPinModal = () => {
+    setPinModalMode(isAdmin ? 'changePin' : 'login');
+    setIsPinModalOpen(true);
+  };
+
+  const handleOpenChangePin = () => {
+    setPinModalMode('changePin');
+    setIsPinModalOpen(true);
   };
 
   const handleUpdatePin = (newPin: string) => {
     const updated = { ...settings, adminPin: newPin };
     setSettings(updated);
     saveSettingsToFirestore(updated);
+    showToast(`PIN Admin berhasil diperbarui menjadi ${newPin}!`, 'success');
+  };
+
+  // Direct Score Input Handlers
+  const handleOpenDirectScoreInput = (match: Match | null = null) => {
+    setTargetDirectScoreMatch(match);
+    setIsDirectScoreModalOpen(true);
+  };
+
+  const handleSaveDirectScoreResult = (savedMatch: Match) => {
+    setMatches(prev => {
+      const exists = prev.some(m => m.id === savedMatch.id);
+      if (exists) {
+        return prev.map(m => m.id === savedMatch.id ? savedMatch : m);
+      }
+      return [savedMatch, ...prev];
+    });
+    saveMatchToFirestore(savedMatch);
+    if (activeScorekeeperMatch?.id === savedMatch.id) {
+      setActiveScorekeeperMatch(null);
+    }
+    const scoreA = savedMatch.sets[0]?.scoreA ?? 0;
+    const scoreB = savedMatch.sets[0]?.scoreB ?? 0;
+    showToast(`Hasil laga ${savedMatch.code} (${scoreA}-${scoreB}) tersimpan! Klasemen diperbarui.`, 'success');
   };
 
   // Team Handlers
@@ -164,7 +204,13 @@ export default function App() {
   const handleUpdateMatch = (updatedMatch: Match) => {
     setMatches(prev => prev.map(m => m.id === updatedMatch.id ? updatedMatch : m));
     saveMatchToFirestore(updatedMatch);
-    setActiveScorekeeperMatch(updatedMatch);
+    if (updatedMatch.status === 'live') {
+      setActiveScorekeeperMatch(updatedMatch);
+    } else if (updatedMatch.status === 'finished') {
+      if (activeScorekeeperMatch?.id === updatedMatch.id) {
+        setActiveScorekeeperMatch(null);
+      }
+    }
     showToast(`Pertandingan ${updatedMatch.code} berhasil diperbarui!`, 'success');
   };
 
@@ -316,7 +362,8 @@ export default function App() {
       {/* Top Navbar */}
       <Navbar
         isAdmin={isAdmin}
-        onOpenPinModal={() => setIsPinModalOpen(true)}
+        onOpenPinModal={handleOpenPinModal}
+        onOpenChangePin={handleOpenChangePin}
         onOpenTeamManager={() => setIsTeamManagerOpen(true)}
         tournamentName={settings.tournamentName}
         onResetData={handleResetData}
@@ -373,6 +420,15 @@ export default function App() {
                 >
                   <Plus size={16} />
                   <span>Buat Laga Baru</span>
+                </button>
+
+                <button
+                  onClick={() => handleOpenDirectScoreInput(null)}
+                  className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-black rounded-2xl transition shadow-md shadow-emerald-600/20 flex items-center gap-1.5"
+                  title="Ketik hasil akhir pertandingan langsung tanpa memulai laga"
+                >
+                  <CheckSquare size={15} />
+                  <span>Input Hasil Laga</span>
                 </button>
 
                 <button
@@ -464,6 +520,7 @@ export default function App() {
             onDeleteMatch={handleDeleteMatch}
             isAdmin={isAdmin}
             onOpenCreateMatch={() => setIsCreateMatchOpen(true)}
+            onOpenDirectScoreInput={handleOpenDirectScoreInput}
           />
         </section>
 
@@ -514,6 +571,7 @@ export default function App() {
         onLogout={handleAdminLogout}
         currentPin={settings.adminPin}
         onUpdatePin={handleUpdatePin}
+        initialMode={pinModalMode}
       />
 
       {/* 2. Team Manager Modal */}
@@ -557,6 +615,17 @@ export default function App() {
         teams={teams}
         matches={matches}
         tournamentName={settings.tournamentName}
+      />
+
+      {/* 6. Direct Score Input Modal (Ketik Hasil Langsung) */}
+      <DirectScoreInputModal
+        isOpen={isDirectScoreModalOpen}
+        onClose={() => setIsDirectScoreModalOpen(false)}
+        targetMatch={targetDirectScoreMatch}
+        allMatches={matches}
+        teams={teams}
+        category={currentCategory}
+        onSaveMatchResult={handleSaveDirectScoreResult}
       />
 
       {/* Floating In-App Toast Notification */}

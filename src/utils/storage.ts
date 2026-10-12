@@ -1,10 +1,10 @@
 import { AppSettings, Match, PlayerPair } from '../types';
 
 const STORAGE_KEYS = {
-  TEAMS: 'badminton_bravo_teams_v4',
-  MATCHES: 'badminton_bravo_matches_v4',
-  SETTINGS: 'badminton_bravo_settings_v4',
-  ADMIN_SESSION: 'badminton_bravo_admin_session_v4',
+  TEAMS: 'badminton_bravo_teams_v5',
+  MATCHES: 'badminton_bravo_matches_v5',
+  SETTINGS: 'badminton_bravo_settings_v5',
+  ADMIN_SESSION: 'badminton_bravo_admin_session_v5',
 };
 
 export const INITIAL_SETTINGS: AppSettings = {
@@ -19,9 +19,9 @@ export const INITIAL_TEAMS: PlayerPair[] = [
   // Ganda Putra (Mens Double) - Grup A
   {
     id: 'md-a1',
-    name: 'Rory / Franklin',
-    player1: 'Rory',
-    player2: 'Franklin',
+    name: 'Franklin / Roy',
+    player1: 'Franklin',
+    player2: 'Roy',
     category: 'MD',
     group: 'Grup A',
     clubOrOrigin: 'Grup A',
@@ -49,8 +49,8 @@ export const INITIAL_TEAMS: PlayerPair[] = [
   },
   {
     id: 'md-a4',
-    name: 'Dhika / Ikko',
-    player1: 'Dhika',
+    name: 'Randika / Ikko',
+    player1: 'Randika',
     player2: 'Ikko',
     category: 'MD',
     group: 'Grup A',
@@ -113,9 +113,9 @@ export const INITIAL_TEAMS: PlayerPair[] = [
   },
   {
     id: 'wd-a2',
-    name: 'Mala / Arlina',
-    player1: 'Mala',
-    player2: 'Arlina',
+    name: 'Arlina / Mala',
+    player1: 'Arlina',
+    player2: 'Mala',
     category: 'WD',
     group: 'Grup A',
     clubOrOrigin: 'Grup A',
@@ -123,9 +123,9 @@ export const INITIAL_TEAMS: PlayerPair[] = [
   },
   {
     id: 'wd-a3',
-    name: 'Gesa / Nabila',
-    player1: 'Gesa',
-    player2: 'Nabila',
+    name: 'Nabila / Gesa',
+    player1: 'Nabila',
+    player2: 'Gesa',
     category: 'WD',
     group: 'Grup A',
     clubOrOrigin: 'Grup A',
@@ -202,14 +202,18 @@ export const INITIAL_MATCHES: Match[] = [
     code: 'MD-A03',
     category: 'MD',
     group: 'Grup A',
-    teamAId: 'md-a1', // Rory / Franklin
+    teamAId: 'md-a1', // Franklin / Roy
     teamBId: 'md-a3', // Aboy / Dwight
     court: 'Lapangan 1',
-    status: 'scheduled',
+    status: 'finished',
     currentSet: 0,
-    sets: [{ scoreA: 0, scoreB: 0, completed: false }],
+    sets: [{ scoreA: 18, scoreB: 30, completed: true, winner: 'B' }],
     maxPoints: 30,
-    servingTeam: 'A',
+    servingTeam: 'B',
+    winnerTeamId: 'md-a3',
+    startedAt: 1770796800000,
+    finishedAt: 1770798600000,
+    notes: 'Selesai: 18 - 30 (Selisih: 12 Poin)',
     history: [],
   },
   {
@@ -218,13 +222,17 @@ export const INITIAL_MATCHES: Match[] = [
     category: 'MD',
     group: 'Grup A',
     teamAId: 'md-a2', // Ahid / Arif
-    teamBId: 'md-a4', // Dhika / Ikko
+    teamBId: 'md-a4', // Randika / Ikko
     court: 'Lapangan 2',
-    status: 'scheduled',
+    status: 'finished',
     currentSet: 0,
-    sets: [{ scoreA: 0, scoreB: 0, completed: false }],
+    sets: [{ scoreA: 30, scoreB: 9, completed: true, winner: 'A' }],
     maxPoints: 30,
     servingTeam: 'A',
+    winnerTeamId: 'md-a2',
+    startedAt: 1770796800000,
+    finishedAt: 1770798600000,
+    notes: 'Selesai: 30 - 9 (Selisih: 21 Poin)',
     history: [],
   },
   {
@@ -232,8 +240,8 @@ export const INITIAL_MATCHES: Match[] = [
     code: 'MD-A05',
     category: 'MD',
     group: 'Grup A',
-    teamAId: 'md-a1', // Rory / Franklin
-    teamBId: 'md-a4', // Dhika / Ikko
+    teamAId: 'md-a1', // Franklin / Roy
+    teamBId: 'md-a4', // Randika / Ikko
     court: 'Lapangan 1',
     status: 'scheduled',
     currentSet: 0,
@@ -357,13 +365,17 @@ export const INITIAL_MATCHES: Match[] = [
     category: 'WD',
     group: 'Grup A',
     teamAId: 'wd-a1', // Kice / Nurul
-    teamBId: 'wd-a2', // Mala / Arlina
+    teamBId: 'wd-a2', // Arlina / Mala
     court: 'Lapangan 1',
-    status: 'scheduled',
+    status: 'finished',
     currentSet: 0,
-    sets: [{ scoreA: 0, scoreB: 0, completed: false }],
+    sets: [{ scoreA: 30, scoreB: 11, completed: true, winner: 'A' }],
     maxPoints: 30,
     servingTeam: 'A',
+    winnerTeamId: 'wd-a1',
+    startedAt: 1770796800000,
+    finishedAt: 1770798600000,
+    notes: 'Selesai: 30 - 11 (Selisih: 19 Poin)',
     history: [],
   },
   {
@@ -371,14 +383,18 @@ export const INITIAL_MATCHES: Match[] = [
     code: 'WD-A02',
     category: 'WD',
     group: 'Grup A',
-    teamAId: 'wd-a1', // Kice / Nurul
-    teamBId: 'wd-a3', // Gesa / Nabila
+    teamAId: 'wd-a3', // Nabila / Gesa
+    teamBId: 'wd-a1', // Kice / Nurul
     court: 'Lapangan 1',
-    status: 'scheduled',
+    status: 'finished',
     currentSet: 0,
-    sets: [{ scoreA: 0, scoreB: 0, completed: false }],
+    sets: [{ scoreA: 30, scoreB: 29, completed: true, winner: 'A' }],
     maxPoints: 30,
     servingTeam: 'A',
+    winnerTeamId: 'wd-a3',
+    startedAt: 1770796800000,
+    finishedAt: 1770798600000,
+    notes: 'Selesai: 30 - 29 (Selisih: 1 Poin - Deuce Sengit)',
     history: [],
   },
   {
@@ -386,8 +402,8 @@ export const INITIAL_MATCHES: Match[] = [
     code: 'WD-A03',
     category: 'WD',
     group: 'Grup A',
-    teamAId: 'wd-a2', // Mala / Arlina
-    teamBId: 'wd-a3', // Gesa / Nabila
+    teamAId: 'wd-a2', // Arlina / Mala
+    teamBId: 'wd-a3', // Nabila / Gesa
     court: 'Lapangan 1',
     status: 'scheduled',
     currentSet: 0,
@@ -418,14 +434,18 @@ export const INITIAL_MATCHES: Match[] = [
     code: 'WD-B02',
     category: 'WD',
     group: 'Grup B',
-    teamAId: 'wd-b1', // Fatih / Tika
-    teamBId: 'wd-b3', // Ana / Isti
+    teamAId: 'wd-b3', // Ana / Isti
+    teamBId: 'wd-b1', // Fatih / Tika
     court: 'Lapangan 2',
-    status: 'scheduled',
+    status: 'finished',
     currentSet: 0,
-    sets: [{ scoreA: 0, scoreB: 0, completed: false }],
+    sets: [{ scoreA: 30, scoreB: 13, completed: true, winner: 'A' }],
     maxPoints: 30,
     servingTeam: 'A',
+    winnerTeamId: 'wd-b3',
+    startedAt: 1770796800000,
+    finishedAt: 1770798600000,
+    notes: 'Selesai: 30 - 13 (Selisih: 17 Poin)',
     history: [],
   },
   {

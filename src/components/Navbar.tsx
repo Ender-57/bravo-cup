@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { 
   Trophy, Lock, Unlock, Users, Settings, 
-  RotateCcw, Download, Upload, Shield, Calendar, History
+  RotateCcw, Download, Upload, Shield, Calendar, History, KeyRound
 } from 'lucide-react';
 
 interface NavbarProps {
   isAdmin: boolean;
   onOpenPinModal: () => void;
+  onOpenChangePin?: () => void;
   onOpenTeamManager: () => void;
   tournamentName: string;
   onResetData: () => void;
@@ -18,6 +19,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({
   isAdmin,
   onOpenPinModal,
+  onOpenChangePin,
   onOpenTeamManager,
   tournamentName,
   onResetData,
@@ -147,8 +149,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             {showSettingsMenu && (
               <div className="absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50 text-xs text-slate-700">
                 <div className="px-3 py-2 border-b border-slate-100 font-bold text-slate-400 uppercase tracking-wider text-[10px]">
-                  Menu Data Cadangan
+                  Pengaturan & Cadangan
                 </div>
+
+                <button
+                  onClick={() => {
+                    if (onOpenChangePin) onOpenChangePin();
+                    else onOpenPinModal();
+                    setShowSettingsMenu(false);
+                  }}
+                  className="w-full text-left px-3 py-2 hover:bg-slate-50 flex items-center gap-2 transition text-slate-700 font-medium"
+                >
+                  <KeyRound size={14} className="text-[#007DCC]" />
+                  <span>Ganti PIN Administrator</span>
+                </button>
 
                 <button
                   onClick={() => {

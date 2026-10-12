@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Play, Calendar, ChevronRight, Edit3, Trash2, 
-  X, Check, AlertTriangle, ArrowRightLeft, Clock
+  X, Check, AlertTriangle, ArrowRightLeft, Clock, CheckSquare
 } from 'lucide-react';
 import { Category, Match, PlayerPair } from '../types';
 
@@ -15,6 +15,7 @@ interface MatchScheduleProps {
   onDeleteMatch?: (matchId: string) => void;
   isAdmin: boolean;
   onOpenCreateMatch: () => void;
+  onOpenDirectScoreInput?: (match: Match | null) => void;
 }
 
 export const MatchSchedule: React.FC<MatchScheduleProps> = ({
@@ -27,6 +28,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
   onDeleteMatch,
   isAdmin,
   onOpenCreateMatch,
+  onOpenDirectScoreInput,
 }) => {
   const [matchToEdit, setMatchToEdit] = useState<Match | null>(null);
   const [matchToDelete, setMatchToDelete] = useState<Match | null>(null);
@@ -291,13 +293,26 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
             </div>
 
             {isAdmin && (
-              <button
-                onClick={onOpenCreateMatch}
-                className="px-3.5 py-1.5 bg-[#007DCC] hover:bg-[#006bb0] text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-sm"
-              >
-                <Play size={13} />
-                <span>Tambah Pertandingan</span>
-              </button>
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {onOpenDirectScoreInput && (
+                  <button
+                    type="button"
+                    onClick={() => onOpenDirectScoreInput(null)}
+                    className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-sm"
+                    title="Ketik hasil pertandingan langsung tanpa memulai laga"
+                  >
+                    <CheckSquare size={13} />
+                    <span>Input Hasil Langsung</span>
+                  </button>
+                )}
+                <button
+                  onClick={onOpenCreateMatch}
+                  className="px-3.5 py-1.5 bg-[#007DCC] hover:bg-[#006bb0] text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-sm"
+                >
+                  <Play size={13} />
+                  <span>Tambah Pertandingan</span>
+                </button>
+              </div>
             )}
           </div>
         </div>
@@ -397,6 +412,19 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                         >
                           <Trash2 size={14} />
                         </button>
+
+                        {/* DIRECT SCORE INPUT BUTTON */}
+                        {onOpenDirectScoreInput && (
+                          <button
+                            type="button"
+                            onClick={() => onOpenDirectScoreInput(m)}
+                            className="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-bold rounded-xl transition flex items-center gap-1 shadow-xs"
+                            title="Ketik hasil skor langsung tanpa memulai laga"
+                          >
+                            <CheckSquare size={12} />
+                            <span>Input Hasil</span>
+                          </button>
+                        )}
 
                         {/* START MATCH BUTTON */}
                         <button

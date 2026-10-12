@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Play, Calendar, Zap, AlertCircle, Clock } from 'lucide-react';
+import { X, Play, Calendar, Zap, AlertCircle, Clock, CheckSquare, Trophy } from 'lucide-react';
 import { Category, Match, PlayerPair } from '../types';
 
 interface CreateMatchModalProps {
@@ -43,7 +43,9 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
   const [teamAId, setTeamAId] = useState<string>('');
   const [teamBId, setTeamBId] = useState<string>('');
   const [court, setCourt] = useState<string>('Lapangan 1');
-  const [startImmediately, setStartImmediately] = useState<boolean>(true);
+  const [statusMode, setStatusMode] = useState<'live' | 'scheduled' | 'finished'>('scheduled');
+  const [scoreA, setScoreA] = useState<number>(30);
+  const [scoreB, setScoreB] = useState<number>(20);
   const [notes, setNotes] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>('');
 
@@ -70,8 +72,20 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
       return;
     }
 
+    if (statusMode === 'finished') {
+      if (scoreA < 0 || scoreB < 0 || scoreA > 30 || scoreB > 30) {
+        setErrorMsg('Skor harus antara 0 dan 30 poin!');
+        return;
+      }
+      if (scoreA === scoreB) {
+        setErrorMsg('Skor tidak boleh imbang/seri dalam sistem 30 poin!');
+        return;
+      }
+    }
+
     const parsedTimestamp = matchDate ? new Date(matchDate).getTime() : Date.now();
     const code = `${selectedCategory}-${selectedGroup.replace(/\s+/g, '').slice(-1)}${Math.floor(10 + Math.random() * 90)}`;
+    const diff = Math.abs(scoreA - scoreB);
     
     const newMatch: Match = {
       id: `match-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
@@ -81,15 +95,22 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
       teamAId,
       teamBId,
       court,
-      status: startImmediately ? 'live' : 'scheduled',
+      status: statusMode,
       currentSet: 0,
       sets: [
-        { scoreA: 0, scoreB: 0, completed: false },
+        { 
+          scoreA: statusMode === 'finished' ? scoreA : 0, 
+          scoreB: statusMode === 'finished' ? scoreB : 0, 
+          completed: statusMode === 'finished',
+          winner: statusMode === 'finished' ? (scoreA > scoreB ? 'A' : 'B') : undefined,
+        },
       ],
       maxPoints: 30, // 30 points max
       servingTeam: 'A',
-      startedAt: parsedTimestamp,
-      notes: notes.trim() || undefined,
+      winnerTeamId: statusMode === 'finished' ? (scoreA > scoreB ? teamAId : teamBId) : undefined,
+      startedAt: statusMode === 'finished' ? parsedTimestamp - (25 * 60 * 1000) : parsedTimestamp,
+      finishedAt: statusMode === 'finished' ? parsedTimestamp : undefined,
+      notes: notes.trim() || (statusMode === 'finished' ? `Hasil: ${scoreA} - ${scoreB} (Selisih: ${diff})` : undefined),
       history: [],
     };
 
@@ -267,30 +288,102 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
 
             <div>
               <label className="text-xs font-semibold text-slate-700 block mb-1">
-                Status Mulai:
+                Tipe / Status Pertandingan:
               </label>
-              <div className="flex gap-2">
+              <div className="grid grid-cols-3 gap-1.5">
                 <button
                   type="button"
-                  onClick={() => setStartImmediately(true)}
-                  className={`flex-1 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 ${
-                    startImmediately ? 'bg-[#007DCC] text-white shadow-sm' : 'bg-slate-100 text-slate-600'
+                  onClick={() => setStatusMode('scheduled')}
+                  className={`py-2 px-1 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 ${
+                    statusMode === 'scheduled' ? 'bg-slate-800 text-white shadow-sm' : 'bg-slate-100 text-slate-600'
                   }`}
                 >
-                  <Play size={12} /> Langsung
+                  <Calendar size={11} /> Jadwal
                 </button>
                 <button
                   type="button"
-                  onClick={() => setStartImmediately(false)}
-                  className={`flex-1 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 ${
-                    !startImmediately ? 'bg-slate-800 text-white shadow-sm' : 'bg-slate-100 text-slate-600'
+                  onClick={() => setStatusMode('live')}
+                  className={`py-2 px-1 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 ${
+                    statusMode === 'live' ? 'bg-[#007DCC] text-white shadow-sm' : 'bg-slate-100 text-slate-600'
                   }`}
                 >
-                  <Calendar size={12} /> Nanti
+                  <Play size={11} /> Live Score
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStatusMode('finished')}
+                  className={`py-2 px-1 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 ${
+                    statusMode === 'finished' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600'
+                  }`}
+                >
+                  <CheckSquare size={11} /> Ketik Hasil
                 </button>
               </div>
             </div>
           </div>
+
+          {/* Direct Score Input Panel if statusMode === 'finished' */}
+          {statusMode === 'finished' && (
+            <div className="p-3.5 bg-emerald-50/70 border-2 border-emerald-300 rounded-2xl space-y-2.5">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-extrabold text-emerald-800 flex items-center gap-1">
+                  <CheckSquare size={14} />
+                  <span>Ketik Skor Akhir Langsung (Maks. 30 Poin)</span>
+                </span>
+                <span className="text-[11px] font-bold text-slate-500">
+                  Selisih: {Math.abs(scoreA - scoreB)} Poin
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 items-center">
+                <div className="bg-white p-2.5 rounded-xl border border-slate-200 text-center">
+                  <span className="text-[11px] font-bold text-[#007DCC] block truncate">
+                    Skor Tim 1 (Biru):
+                  </span>
+                  <input
+                    type="number"
+                    min={0}
+                    max={30}
+                    value={scoreA}
+                    onChange={e => setScoreA(Math.min(30, Math.max(0, parseInt(e.target.value) || 0)))}
+                    className="w-full text-center text-3xl font-['Teko',sans-serif] font-bold text-[#007DCC] focus:outline-none"
+                  />
+                  <div className="flex gap-1 mt-1 justify-center">
+                    <button
+                      type="button"
+                      onClick={() => setScoreA(30)}
+                      className="px-2 py-0.5 rounded bg-blue-50 text-[10px] font-black text-[#007DCC] border border-blue-200"
+                    >
+                      30
+                    </button>
+                  </div>
+                </div>
+
+                <div className="bg-white p-2.5 rounded-xl border border-slate-200 text-center">
+                  <span className="text-[11px] font-bold text-[#D10056] block truncate">
+                    Skor Tim 2 (Merah):
+                  </span>
+                  <input
+                    type="number"
+                    min={0}
+                    max={30}
+                    value={scoreB}
+                    onChange={e => setScoreB(Math.min(30, Math.max(0, parseInt(e.target.value) || 0)))}
+                    className="w-full text-center text-3xl font-['Teko',sans-serif] font-bold text-[#D10056] focus:outline-none"
+                  />
+                  <div className="flex gap-1 mt-1 justify-center">
+                    <button
+                      type="button"
+                      onClick={() => setScoreB(30)}
+                      className="px-2 py-0.5 rounded bg-rose-50 text-[10px] font-black text-[#D10056] border border-rose-200"
+                    >
+                      30
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Catatan */}
           <div>
@@ -315,10 +408,28 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full py-3 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white text-xs font-black uppercase tracking-wider rounded-xl transition shadow-md shadow-blue-500/20 flex items-center justify-center gap-1.5"
+              className={`w-full py-3 active:scale-95 text-white text-xs font-black uppercase tracking-wider rounded-xl transition shadow-md flex items-center justify-center gap-1.5 ${
+                statusMode === 'finished'
+                  ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20'
+                  : 'bg-[#007DCC] hover:bg-[#006bb0] shadow-blue-500/20'
+              }`}
             >
-              <Play size={16} />
-              <span>Simpan & {startImmediately ? 'Buka Papan Skor (30 Poin)' : 'Jadwalkan'}</span>
+              {statusMode === 'finished' ? (
+                <>
+                  <CheckSquare size={16} />
+                  <span>Simpan Hasil Laga Selesai ({scoreA} - {scoreB})</span>
+                </>
+              ) : statusMode === 'live' ? (
+                <>
+                  <Play size={16} />
+                  <span>Simpan & Buka Papan Skor Live</span>
+                </>
+              ) : (
+                <>
+                  <Calendar size={16} />
+                  <span>Jadwalkan Pertandingan</span>
+                </>
+              )}
             </button>
           </div>
         </form>

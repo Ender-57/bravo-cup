@@ -278,7 +278,7 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
             <span className={`px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
               match.status === 'finished' 
                 ? 'bg-slate-100 text-slate-600' 
-                : 'bg-rose-100 text-[#D10056] border border-rose-200 animate-pulse'
+                : 'bg-rose-100 text-[#FF3483] border border-rose-200 animate-pulse'
             }`}>
               {match.status === 'finished' ? 'Selesai' : '🔴 Sedang Tanding'}
             </span>
@@ -292,7 +292,7 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
             <button
               onClick={handleShareWA}
               title="Share Hasil ke WhatsApp"
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white text-xs font-bold rounded-xl transition shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white text-xs font-bold rounded-xl transition shadow-sm"
             >
               <Share2 size={14} />
               <span>Share WA</span>
@@ -323,7 +323,7 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
             <span className="text-xs text-slate-500 font-semibold flex items-center gap-1">
               <Clock size={13} /> Target:
             </span>
-            <span className="px-2.5 py-0.5 rounded-lg bg-[#FFB900]/25 text-[#B2054C] font-extrabold text-xs">
+            <span className="px-2.5 py-0.5 rounded-lg bg-[#FFCF00]/25 text-[#91008D] font-extrabold text-xs">
               Maksimal 30 Poin
             </span>
             {match.sets.length > 1 && match.sets.map((set, idx) => {
@@ -333,7 +333,7 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
                   key={idx}
                   className={`px-3 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                     isCurrent
-                      ? 'bg-[#007DCC] text-white shadow-sm'
+                      ? 'bg-[#00E0BA] text-white shadow-sm'
                       : set.completed
                       ? 'bg-slate-200 text-slate-700'
                       : 'bg-slate-100 text-slate-400'
@@ -362,7 +362,7 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
                 🔥 MATCH POINT (POIN KE-29) UNTUK {isMatchPointA ? teamA.name.toUpperCase() : teamB.name.toUpperCase()}!
               </div>
             ) : isInterval ? (
-              <div className="p-2.5 bg-blue-50 border border-blue-200 rounded-2xl text-center text-xs font-black text-[#007DCC] tracking-wider uppercase">
+              <div className="p-2.5 bg-blue-50 border border-blue-200 rounded-2xl text-center text-xs font-black text-[#00E0BA] tracking-wider uppercase">
                 ⏸️ INTERVAL 15 POIN (Setengah Laga 30 Poin)
               </div>
             ) : null}
@@ -371,11 +371,11 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
 
         {/* Winner Banner if Finished */}
         {match.status === 'finished' && (
-          <div className="mb-4 p-4 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 border-2 border-[#FFB900] rounded-2xl text-center shadow-sm">
-            <Trophy className="mx-auto text-[#FFB900] mb-1" size={32} />
+          <div className="mb-4 p-4 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 border-2 border-[#FFCF00] rounded-2xl text-center shadow-sm">
+            <Trophy className="mx-auto text-[#FFCF00] mb-1" size={32} />
             <h4 className="text-lg font-black text-slate-900">
               PEMENANG:{' '}
-              <span className="text-[#B2054C]">
+              <span className="text-[#91008D]">
                 {match.winnerTeamId === teamA.id ? teamA.name : teamB.name}
               </span>
             </h4>
@@ -391,18 +391,18 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
           <div
             className={`relative rounded-3xl p-4 sm:p-6 transition-all duration-200 border-2 flex flex-col items-center justify-between text-center select-none ${
               match.servingTeam === leftSideKey
-                ? 'bg-blue-50/70 border-[#007DCC] shadow-md shadow-blue-500/10'
+                ? 'bg-blue-50/70 border-[#00E0BA] shadow-md shadow-blue-500/10'
                 : 'bg-slate-50 border-slate-200'
             }`}
           >
             {/* Team Header */}
             <div className="w-full">
               <div className="flex items-center justify-between gap-1 mb-1">
-                <span className="text-[10px] sm:text-xs font-black uppercase px-2.5 py-0.5 rounded-full bg-[#007DCC] text-white">
+                <span className="text-[10px] sm:text-xs font-black uppercase px-2.5 py-0.5 rounded-full bg-[#00E0BA] text-white">
                   {leftSideKey === 'A' ? 'Tim 1' : 'Tim 2'}
                 </span>
                 {match.servingTeam === leftSideKey && (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-extrabold bg-[#FFB900] text-slate-950 px-2 py-0.5 rounded-full shadow-xs animate-bounce">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-extrabold bg-[#FFCF00] text-slate-950 px-2 py-0.5 rounded-full shadow-xs animate-bounce">
                     🏸 Servis
                   </span>
                 )}
@@ -427,7 +427,7 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
               <div className="w-full">
                 <button
                   onClick={() => handleAddPoint(leftSideKey)}
-                  className="w-full py-4 sm:py-5 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white text-xl sm:text-2xl font-black rounded-2xl shadow-md shadow-blue-500/20 transition flex items-center justify-center gap-2"
+                  className="w-full py-4 sm:py-5 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white text-xl sm:text-2xl font-black rounded-2xl shadow-md shadow-emerald-500/20 transition flex items-center justify-center gap-2"
                 >
                   <span>+1 POIN</span>
                 </button>
@@ -443,18 +443,18 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
           <div
             className={`relative rounded-3xl p-4 sm:p-6 transition-all duration-200 border-2 flex flex-col items-center justify-between text-center select-none ${
               match.servingTeam === rightSideKey
-                ? 'bg-rose-50/70 border-[#D10056] shadow-md shadow-rose-500/10'
+                ? 'bg-rose-50/70 border-[#FF3483] shadow-md shadow-rose-500/10'
                 : 'bg-slate-50 border-slate-200'
             }`}
           >
             {/* Team Header */}
             <div className="w-full">
               <div className="flex items-center justify-between gap-1 mb-1">
-                <span className="text-[10px] sm:text-xs font-black uppercase px-2.5 py-0.5 rounded-full bg-[#D10056] text-white">
+                <span className="text-[10px] sm:text-xs font-black uppercase px-2.5 py-0.5 rounded-full bg-[#FF3483] text-white">
                   {rightSideKey === 'A' ? 'Tim 1' : 'Tim 2'}
                 </span>
                 {match.servingTeam === rightSideKey && (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-extrabold bg-[#FFB900] text-slate-950 px-2 py-0.5 rounded-full shadow-xs animate-bounce">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-extrabold bg-[#FFCF00] text-slate-950 px-2 py-0.5 rounded-full shadow-xs animate-bounce">
                     🏸 Servis
                   </span>
                 )}
@@ -479,7 +479,7 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
               <div className="w-full">
                 <button
                   onClick={() => handleAddPoint(rightSideKey)}
-                  className="w-full py-4 sm:py-5 bg-[#D10056] hover:bg-[#b2054c] active:scale-95 text-white text-xl sm:text-2xl font-black rounded-2xl shadow-md shadow-rose-500/20 transition flex items-center justify-center gap-2"
+                  className="w-full py-4 sm:py-5 bg-[#FF3483] hover:bg-[#91008D] active:scale-95 text-white text-xl sm:text-2xl font-black rounded-2xl shadow-md shadow-rose-500/20 transition flex items-center justify-center gap-2"
                 >
                   <span>+1 POIN</span>
                 </button>
@@ -519,7 +519,7 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
 
             <button
               onClick={() => setConfirmFinish(true)}
-              className="col-span-3 sm:col-span-1 py-2.5 px-3 bg-rose-50 hover:bg-rose-100 text-[#B2054C] border border-rose-200 font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 transition"
+              className="col-span-3 sm:col-span-1 py-2.5 px-3 bg-rose-50 hover:bg-rose-100 text-[#91008D] border border-rose-200 font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 transition"
             >
               <Flag size={15} /> Akhiri Laga
             </button>
@@ -530,19 +530,19 @@ export const ScorekeeperModal: React.FC<ScorekeeperModalProps> = ({
         {confirmFinish && (
           <div className="my-2 p-3 bg-rose-50 border border-rose-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-800">
             <div className="text-center sm:text-left text-xs">
-              <p className="font-bold text-[#B2054C]">Konfirmasi Selesai Pertandingan Lebih Awal?</p>
+              <p className="font-bold text-[#91008D]">Konfirmasi Selesai Pertandingan Lebih Awal?</p>
               <p className="text-slate-600">Pilih tim yang ditetapkan sebagai pemenang:</p>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => handleForceFinish('A')}
-                className="px-3 py-1.5 bg-[#007DCC] hover:bg-[#006bb0] text-white text-xs font-bold rounded-lg transition"
+                className="px-3 py-1.5 bg-[#00E0BA] hover:bg-[#00B89A] text-white text-xs font-bold rounded-lg transition"
               >
                 {teamA.name} Menang
               </button>
               <button
                 onClick={() => handleForceFinish('B')}
-                className="px-3 py-1.5 bg-[#D10056] hover:bg-[#b2054c] text-white text-xs font-bold rounded-lg transition"
+                className="px-3 py-1.5 bg-[#FF3483] hover:bg-[#91008D] text-white text-xs font-bold rounded-lg transition"
               >
                 {teamB.name} Menang
               </button>

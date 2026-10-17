@@ -135,18 +135,18 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
     <div className="space-y-6">
       {/* LIVE MATCHES SECTION */}
       {liveMatches.length > 0 && (
-        <div className="bg-white border-2 border-[#007DCC]/40 rounded-3xl p-5 sm:p-6 shadow-sm">
+        <div className="bg-white border-2 border-[#00E0BA]/40 rounded-3xl p-5 sm:p-6 shadow-sm">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
             <div className="flex items-center gap-2">
               <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D10056] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#D10056]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF3483] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FF3483]"></span>
               </span>
               <h3 className="text-base font-extrabold text-slate-900 uppercase tracking-wider">
                 Pertandingan Sedang Berlangsung (LIVE)
               </h3>
             </div>
-            <span className="text-xs font-bold bg-rose-100 text-[#D10056] border border-rose-200 px-3 py-1 rounded-full">
+            <span className="text-xs font-bold bg-rose-100 text-[#FF3483] border border-rose-200 px-3 py-1 rounded-full">
               {liveMatches.length} Lapangan Aktif • 30 Poin
             </span>
           </div>
@@ -164,10 +164,10 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                 <div
                   key={m.id}
                   onClick={() => onOpenScorekeeper(m)}
-                  className="bg-blue-50/40 border-2 border-[#007DCC]/50 hover:border-[#007DCC] rounded-2xl p-4 cursor-pointer transition-all duration-200 group shadow-xs hover:shadow-md"
+                  className="bg-blue-50/40 border-2 border-[#00E0BA]/50 hover:border-[#00E0BA] rounded-2xl p-4 cursor-pointer transition-all duration-200 group shadow-xs hover:shadow-md"
                 >
                   <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
-                    <span className="font-bold text-[#007DCC] bg-blue-100 px-2 py-0.5 rounded">
+                    <span className="font-bold text-[#00E0BA] bg-blue-100 px-2 py-0.5 rounded">
                       {m.code} • {m.group}
                     </span>
                     <div className="flex items-center gap-1.5">
@@ -178,7 +178,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                         <button
                           type="button"
                           onClick={e => handleOpenEdit(m, e)}
-                          className="p-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-[#B2054C] border border-amber-200 transition"
+                          className="p-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-[#91008D] border border-amber-200 transition"
                           title="Edit Info Laga"
                         >
                           <Edit3 size={13} />
@@ -191,9 +191,9 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                   <div className="space-y-2 my-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#007DCC]"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#00E0BA]"></span>
                         <div>
-                          <p className="text-sm font-bold text-slate-900 group-hover:text-[#007DCC] transition">
+                          <p className="text-sm font-bold text-slate-900 group-hover:text-[#00E0BA] transition">
                             {teamA.name}
                           </p>
                           <p className="text-[11px] text-slate-500">
@@ -201,16 +201,16 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                           </p>
                         </div>
                       </div>
-                      <span className="font-['Teko',sans-serif] text-3xl font-bold text-[#007DCC]">
+                      <span className="font-['Teko',sans-serif] text-3xl font-bold text-[#00E0BA]">
                         {currentSet.scoreA}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#D10056]"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#FF3483]"></span>
                         <div>
-                          <p className="text-sm font-bold text-slate-900 group-hover:text-[#D10056] transition">
+                          <p className="text-sm font-bold text-slate-900 group-hover:text-[#FF3483] transition">
                             {teamB.name}
                           </p>
                           <p className="text-[11px] text-slate-500">
@@ -218,7 +218,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                           </p>
                         </div>
                       </div>
-                      <span className="font-['Teko',sans-serif] text-3xl font-bold text-[#D10056]">
+                      <span className="font-['Teko',sans-serif] text-3xl font-bold text-[#FF3483]">
                         {currentSet.scoreB}
                       </span>
                     </div>
@@ -230,7 +230,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                       Target 30 Poin • Selisih: <strong className="text-slate-900">{currentDiff}</strong>
                     </div>
 
-                    <div className="flex items-center gap-1 text-[#007DCC] font-bold group-hover:translate-x-1 transition">
+                    <div className="flex items-center gap-1 text-[#00E0BA] font-bold group-hover:translate-x-1 transition">
                       <span>{isAdmin ? 'Catat Skor' : 'Lihat Skor Live'}</span>
                       <ChevronRight size={14} />
                     </div>
@@ -246,7 +246,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
       <div className="bg-white border border-slate-200/90 rounded-3xl p-5 sm:p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#007DCC] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#00E0BA] flex items-center justify-center font-bold">
               <Calendar size={18} />
             </div>
             <div>
@@ -273,7 +273,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                 onClick={() => setFilterCategory('MD')}
                 className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
                   filterCategory === 'MD'
-                    ? 'bg-[#007DCC] text-white shadow-xs'
+                    ? 'bg-[#00E0BA] text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -284,7 +284,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                 onClick={() => setFilterCategory('WD')}
                 className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
                   filterCategory === 'WD'
-                    ? 'bg-[#D10056] text-white shadow-xs'
+                    ? 'bg-[#FF3483] text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -307,7 +307,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                 )}
                 <button
                   onClick={onOpenCreateMatch}
-                  className="px-3.5 py-1.5 bg-[#007DCC] hover:bg-[#006bb0] text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-sm"
+                  className="px-3.5 py-1.5 bg-[#00E0BA] hover:bg-[#00B89A] text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-sm"
                 >
                   <Play size={13} />
                   <span>Tambah Pertandingan</span>
@@ -347,11 +347,11 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                   <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
                     <div className="flex items-center gap-1.5">
                       <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded ${
-                        m.category === 'MD' ? 'bg-blue-100 text-[#007DCC]' : 'bg-rose-100 text-[#D10056]'
+                        m.category === 'MD' ? 'bg-blue-100 text-[#00E0BA]' : 'bg-rose-100 text-[#FF3483]'
                       }`}>
                         {m.category === 'MD' ? 'PUTRA' : 'PUTRI'}
                       </span>
-                      <span className="font-bold text-[#007DCC] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
+                      <span className="font-bold text-[#00E0BA] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
                         {m.code} • {m.group}
                       </span>
                     </div>
@@ -396,7 +396,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                         <button
                           type="button"
                           onClick={() => handleOpenEdit(m)}
-                          className="px-2.5 py-1.5 bg-amber-50 hover:bg-amber-100 text-[#B2054C] border border-amber-200 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-xs"
+                          className="px-2.5 py-1.5 bg-amber-50 hover:bg-amber-100 text-[#91008D] border border-amber-200 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-xs"
                           title="Edit Jadwal Pertandingan"
                         >
                           <Edit3 size={13} />
@@ -407,7 +407,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                         <button
                           type="button"
                           onClick={() => setMatchToDelete(m)}
-                          className="p-1.5 text-slate-400 hover:text-[#D10056] hover:bg-rose-50 rounded-xl transition border border-transparent hover:border-rose-200"
+                          className="p-1.5 text-slate-400 hover:text-[#FF3483] hover:bg-rose-50 rounded-xl transition border border-transparent hover:border-rose-200"
                           title="Hapus Jadwal"
                         >
                           <Trash2 size={14} />
@@ -429,7 +429,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                         {/* START MATCH BUTTON */}
                         <button
                           onClick={() => onStartMatch(m)}
-                          className="px-3 py-1.5 bg-[#007DCC] hover:bg-[#006bb0] text-white text-xs font-bold rounded-xl transition flex items-center gap-1 shadow-sm active:scale-95"
+                          className="px-3 py-1.5 bg-[#00E0BA] hover:bg-[#00B89A] text-white text-xs font-bold rounded-xl transition flex items-center gap-1 shadow-sm active:scale-95"
                         >
                           <Play size={12} />
                           <span>Mulai Laga</span>
@@ -455,7 +455,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
             {/* Header */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-amber-100 text-[#B2054C] flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-amber-100 text-[#91008D] flex items-center justify-center font-bold">
                   <Edit3 size={20} />
                 </div>
                 <div>
@@ -497,7 +497,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                         value={editCode}
                         onChange={e => setEditCode(e.target.value)}
                         placeholder="Contoh: WD-B01"
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-[#007DCC]"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-bold focus:outline-none focus:border-[#00E0BA]"
                       />
                     </div>
 
@@ -508,7 +508,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                       <select
                         value={editGroup}
                         onChange={e => setEditGroup(e.target.value)}
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                       >
                         {editAvailableGroups.map(g => (
                           <option key={g} value={g}>{g}</option>
@@ -526,7 +526,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                       <button
                         type="button"
                         onClick={handleSwapTeams}
-                        className="text-xs text-[#007DCC] hover:text-[#006bb0] font-semibold flex items-center gap-1 transition"
+                        className="text-xs text-[#00E0BA] hover:text-[#00B89A] font-semibold flex items-center gap-1 transition"
                       >
                         <ArrowRightLeft size={13} />
                         <span>Tukar Sisi</span>
@@ -535,13 +535,13 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
 
                     {/* Team 1 */}
                     <div>
-                      <label className="text-[11px] font-bold text-[#007DCC] block mb-1">
+                      <label className="text-[11px] font-bold text-[#00E0BA] block mb-1">
                         Tim 1 (Biru):
                       </label>
                       <select
                         value={editTeamAId}
                         onChange={e => setEditTeamAId(e.target.value)}
-                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                       >
                         <option value="">-- Pilih Tim 1 --</option>
                         {matchCategoryTeams.map(t => (
@@ -554,13 +554,13 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
 
                     {/* Team 2 */}
                     <div>
-                      <label className="text-[11px] font-bold text-[#D10056] block mb-1">
+                      <label className="text-[11px] font-bold text-[#FF3483] block mb-1">
                         Tim 2 (Merah):
                       </label>
                       <select
                         value={editTeamBId}
                         onChange={e => setEditTeamBId(e.target.value)}
-                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#D10056]"
+                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF3483]"
                       >
                         <option value="">-- Pilih Tim 2 --</option>
                         {matchCategoryTeams.map(t => (
@@ -584,7 +584,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                     value={editCourt}
                     onChange={e => setEditCourt(e.target.value)}
                     placeholder="Lapangan 1"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                   />
                 </div>
 
@@ -596,7 +596,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                     type="datetime-local"
                     value={editDate}
                     onChange={e => setEditDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                   />
                 </div>
               </div>
@@ -611,12 +611,12 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                   value={editNotes}
                   onChange={e => setEditNotes(e.target.value)}
                   placeholder="Contoh: Partai penyisihan grup pool"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                 />
               </div>
 
               {editError && (
-                <p className="text-xs text-[#D10056] flex items-center gap-1 font-semibold">
+                <p className="text-xs text-[#FF3483] flex items-center gap-1 font-semibold">
                   <AlertTriangle size={14} /> {editError}
                 </p>
               )}
@@ -632,7 +632,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 px-3 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-md shadow-blue-500/20 flex items-center justify-center gap-1.5"
+                  className="flex-1 py-2.5 px-3 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-md shadow-emerald-500/20 flex items-center justify-center gap-1.5"
                 >
                   <Check size={15} />
                   <span>Simpan Perubahan</span>
@@ -649,7 +649,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
       {matchToDelete && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center">
-            <div className="w-12 h-12 rounded-full bg-rose-100 text-[#D10056] mx-auto flex items-center justify-center mb-3">
+            <div className="w-12 h-12 rounded-full bg-rose-100 text-[#FF3483] mx-auto flex items-center justify-center mb-3">
               <AlertTriangle size={24} />
             </div>
             <h4 className="text-base font-bold text-slate-900 mb-1">
@@ -670,7 +670,7 @@ export const MatchSchedule: React.FC<MatchScheduleProps> = ({
               <button
                 type="button"
                 onClick={handleConfirmDelete}
-                className="flex-1 py-2 px-3 bg-[#D10056] hover:bg-[#b2054c] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-sm"
+                className="flex-1 py-2 px-3 bg-[#FF3483] hover:bg-[#91008D] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-sm"
               >
                 Ya, Hapus
               </button>

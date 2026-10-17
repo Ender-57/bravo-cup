@@ -99,7 +99,7 @@ export function generateStandingsCanvasPoster(options: DrawPosterOptions): {
 
   curY += 20;
   ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillStyle = '#007DCC';
+  ctx.fillStyle = '#00E0BA';
   ctx.fillText('REKAP KLASEMEN RESMI SELURUH POOL • SISTEM SKOR MAKSIMAL 30 POIN', padX, curY);
 
   // Top Right Official Update Badge
@@ -299,7 +299,7 @@ export function generateStandingsCanvasPoster(options: DrawPosterOptions): {
   ctx.stroke();
 
   ctx.font = 'bold 10.5px -apple-system, BlinkMacSystemFont, sans-serif';
-  ctx.fillStyle = '#007DCC';
+  ctx.fillStyle = '#00E0BA';
   ctx.textAlign = 'left';
   ctx.fillText("🏸 KATEGORI GANDA PUTRA (MEN'S DOUBLES - MD)", padX + 10, curY + 16);
 

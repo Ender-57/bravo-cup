@@ -244,7 +244,7 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
             {/* Direct Download PNG Button */}
             <button
               onClick={handleDownloadPng}
-              className="px-3.5 py-2 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-sm flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-2 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-sm flex items-center gap-1.5 cursor-pointer"
             >
               <Download size={15} />
               <span>Unduh PNG</span>
@@ -300,7 +300,7 @@ export const ShareStandingsModal: React.FC<ShareStandingsModalProps> = ({
             </div>
           ) : (
             <div className="py-16 flex flex-col items-center text-slate-400">
-              <RefreshCw size={28} className="animate-spin text-[#007DCC] mb-3" />
+              <RefreshCw size={28} className="animate-spin text-[#00E0BA] mb-3" />
               <p className="text-xs font-semibold text-slate-600">Menyusun gambar...</p>
             </div>
           )}

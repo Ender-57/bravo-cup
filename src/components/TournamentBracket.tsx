@@ -149,7 +149,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
         isFinished
           ? 'bg-emerald-50/20 border-emerald-300'
           : isLive
-          ? 'bg-rose-50/40 border-[#D10056] ring-2 ring-rose-200'
+          ? 'bg-rose-50/40 border-[#FF3483] ring-2 ring-rose-200'
           : 'bg-white border-slate-200 hover:border-slate-300'
       }`}>
         {/* Header Bar */}
@@ -158,7 +158,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
             <span className={`font-black px-2 py-0.5 rounded text-[10px] ${
               round === 'FINAL' 
                 ? 'bg-amber-100 text-amber-900 border border-amber-300' 
-                : 'bg-blue-50 text-[#007DCC] border border-blue-100'
+                : 'bg-blue-50 text-[#00E0BA] border border-blue-100'
             }`}>
               {title}
             </span>
@@ -177,7 +177,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
         }`}>
           <div className="flex items-center gap-2 truncate">
             <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded shrink-0 ${
-              round === 'FINAL' ? 'bg-[#007DCC] text-white' : 'bg-amber-100 text-amber-900'
+              round === 'FINAL' ? 'bg-[#00E0BA] text-white' : 'bg-amber-100 text-amber-900'
             }`}>
               {labelA}
             </span>
@@ -191,7 +191,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
             </div>
           </div>
           <span className={`font-['Teko',sans-serif] text-3xl font-black pl-2 leading-none ${
-            isWinnerA ? 'text-emerald-700' : 'text-[#007DCC]'
+            isWinnerA ? 'text-emerald-700' : 'text-[#00E0BA]'
           }`}>
             {scoreA}
           </span>
@@ -205,7 +205,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
         }`}>
           <div className="flex items-center gap-2 truncate">
             <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded shrink-0 ${
-              round === 'FINAL' ? 'bg-[#D10056] text-white' : 'bg-slate-200 text-slate-700'
+              round === 'FINAL' ? 'bg-[#FF3483] text-white' : 'bg-slate-200 text-slate-700'
             }`}>
               {labelB}
             </span>
@@ -219,7 +219,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
             </div>
           </div>
           <span className={`font-['Teko',sans-serif] text-3xl font-black pl-2 leading-none ${
-            isWinnerB ? 'text-emerald-700' : 'text-[#D10056]'
+            isWinnerB ? 'text-emerald-700' : 'text-[#FF3483]'
           }`}>
             {scoreB}
           </span>
@@ -234,8 +234,8 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
                 <span>Selesai (30 Poin)</span>
               </span>
             ) : isLive ? (
-              <span className="text-[#D10056] font-extrabold flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-[#D10056] animate-pulse" />
+              <span className="text-[#FF3483] font-extrabold flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-[#FF3483] animate-pulse" />
                 <span>Sedang Berlangsung</span>
               </span>
             ) : (
@@ -259,7 +259,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
                   <button
                     type="button"
                     onClick={() => onOpenScorekeeper(match)}
-                    className="px-2 py-1 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-xs"
+                    className="px-2 py-1 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-xs"
                     title="Live Scoring"
                   >
                     <Play size={11} />
@@ -271,7 +271,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
                   <button
                     type="button"
                     onClick={() => handleCreateKnockoutMatch(round, teamA, teamB, defaultCourt)}
-                    className="px-2.5 py-1 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white rounded-lg text-xs font-black transition flex items-center gap-1 shadow-xs"
+                    className="px-2.5 py-1 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white rounded-lg text-xs font-black transition flex items-center gap-1 shadow-xs"
                   >
                     <span>Buat Jadwal</span>
                   </button>
@@ -287,7 +287,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
   // Render Podium Juara Card
   const renderPodiumCard = () => (
     <div className="w-full bg-gradient-to-b from-amber-50 via-white to-slate-50 border-2 border-amber-300 rounded-3xl p-5 text-center shadow-md relative">
-      <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-gradient-to-tr from-amber-400 to-[#FFB900] text-slate-950 flex items-center justify-center font-black shadow-lg shadow-amber-500/30">
+      <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-gradient-to-tr from-amber-400 to-[#FFCF00] text-slate-950 flex items-center justify-center font-black shadow-lg shadow-amber-500/30">
         <Trophy size={32} />
       </div>
 
@@ -348,7 +348,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
               <h3 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
                 Bagan Fase Gugur (Semifinal &amp; Final)
               </h3>
-              <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-100 text-[#B2054C] border border-amber-300">
+              <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-100 text-[#91008D] border border-amber-300">
                 Sistem Gugur • 30 Poin
               </span>
             </div>
@@ -372,7 +372,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
               }`}
               title="Tampilan bagan pohon lengkap dengan garis penghubung"
             >
-              <GitBranch size={13} className="text-[#007DCC]" />
+              <GitBranch size={13} className="text-[#00E0BA]" />
               <span>Bagan Pohon (Garis)</span>
             </button>
             <button
@@ -397,7 +397,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
               onClick={() => setActiveCategory('MD')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                 activeCategory === 'MD'
-                  ? 'bg-[#007DCC] text-white shadow-sm'
+                  ? 'bg-[#00E0BA] text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -408,7 +408,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
               onClick={() => setActiveCategory('WD')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                 activeCategory === 'WD'
-                  ? 'bg-[#D10056] text-white shadow-sm'
+                  ? 'bg-[#FF3483] text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -421,16 +421,16 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
       {/* Rules Information Banner */}
       <div className="p-3.5 bg-blue-50/70 border border-blue-200 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-700">
         <div className="flex items-center gap-2">
-          <Info size={16} className="text-[#007DCC] shrink-0" />
+          <Info size={16} className="text-[#00E0BA] shrink-0" />
           <span>
             Peringkat 1 &amp; 2 grup otomatis dihubungkan ke babak Semifinal berdasarkan <strong>Poin Menang</strong> dan <strong>Selisih Poin (+/-)</strong>.
           </span>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-white border border-blue-200 text-[#007DCC]">
+          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-white border border-blue-200 text-[#00E0BA]">
             SF1: 1A vs 2B
           </span>
-          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-white border border-blue-200 text-[#007DCC]">
+          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-white border border-blue-200 text-[#00E0BA]">
             SF2: 1B vs 2A
           </span>
         </div>
@@ -457,7 +457,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
                 {/* Header Semifinal */}
                 <div className="flex items-center justify-between pr-2">
                   <span className="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                    <Swords size={14} className="text-[#007DCC]" />
+                    <Swords size={14} className="text-[#00E0BA]" />
                     <span>Babak Semifinal</span>
                   </span>
                   <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">
@@ -552,7 +552,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
                     {/* Shadow / Glow Filter */}
                     <defs>
                       <filter id="sfGlow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#007DCC" floodOpacity="0.45"/>
+                        <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#00E0BA" floodOpacity="0.45"/>
                       </filter>
                     </defs>
 
@@ -569,7 +569,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
                     {/* Active highlighted SF1 line */}
                     <path 
                       d="M 0 25 H 34 Q 42 25 42 33 V 50" 
-                      stroke={sf1Winner ? '#007DCC' : sf1Match?.status === 'live' ? '#D10056' : '#94A3B8'} 
+                      stroke={sf1Winner ? '#00E0BA' : sf1Match?.status === 'live' ? '#FF3483' : '#94A3B8'} 
                       strokeWidth={sf1Winner ? '4' : '3'} 
                       strokeLinecap="round" 
                       strokeLinejoin="round" 
@@ -590,7 +590,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
                     {/* Active highlighted SF2 line */}
                     <path 
                       d="M 0 75 H 34 Q 42 75 42 67 V 50" 
-                      stroke={sf2Winner ? (activeCategory === 'WD' ? '#D10056' : '#007DCC') : sf2Match?.status === 'live' ? '#D10056' : '#94A3B8'} 
+                      stroke={sf2Winner ? (activeCategory === 'WD' ? '#FF3483' : '#00E0BA') : sf2Match?.status === 'live' ? '#FF3483' : '#94A3B8'} 
                       strokeWidth={sf2Winner ? '4' : '3'} 
                       strokeLinecap="round" 
                       strokeLinejoin="round" 
@@ -601,7 +601,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
                     {/* Stem Line: dari Junction (42, 50) ke Final Card (84, 50) */}
                     <path 
                       d="M 42 50 H 84" 
-                      stroke={sf1Winner && sf2Winner ? '#059669' : (sf1Winner || sf2Winner ? '#007DCC' : '#94A3B8')} 
+                      stroke={sf1Winner && sf2Winner ? '#059669' : (sf1Winner || sf2Winner ? '#00E0BA' : '#94A3B8')} 
                       strokeWidth={sf1Winner && sf2Winner ? '4' : '3'} 
                       strokeLinecap="round" 
                       vectorEffect="non-scaling-stroke" 
@@ -610,19 +610,19 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
                     {/* Arrowhead polygon masuk ke Final */}
                     <polygon 
                       points="76,46 84,50 76,54" 
-                      fill={sf1Winner && sf2Winner ? '#059669' : (sf1Winner || sf2Winner ? '#007DCC' : '#64748B')} 
+                      fill={sf1Winner && sf2Winner ? '#059669' : (sf1Winner || sf2Winner ? '#00E0BA' : '#64748B')} 
                     />
 
                     {/* Exit Nodes */}
-                    <circle cx="0" cy="25" r="4" fill={sf1Winner ? '#007DCC' : '#64748B'} />
-                    <circle cx="0" cy="75" r="4" fill={sf2Winner ? (activeCategory === 'WD' ? '#D10056' : '#007DCC') : '#64748B'} />
+                    <circle cx="0" cy="25" r="4" fill={sf1Winner ? '#00E0BA' : '#64748B'} />
+                    <circle cx="0" cy="75" r="4" fill={sf2Winner ? (activeCategory === 'WD' ? '#FF3483' : '#00E0BA') : '#64748B'} />
 
                     {/* Central Junction Node */}
                     <circle 
                       cx="42" 
                       cy="50" 
                       r={sf1Winner && sf2Winner ? '6' : '5'} 
-                      fill={sf1Winner && sf2Winner ? '#059669' : (sf1Winner || sf2Winner ? '#007DCC' : '#64748B')} 
+                      fill={sf1Winner && sf2Winner ? '#059669' : (sf1Winner || sf2Winner ? '#00E0BA' : '#64748B')} 
                       stroke="#FFFFFF" 
                       strokeWidth="2" 
                     />
@@ -634,7 +634,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
                       sf1Winner && sf2Winner 
                         ? 'bg-emerald-600 text-white border-emerald-400' 
                         : (sf1Winner || sf2Winner) 
-                        ? 'bg-[#007DCC] text-white border-blue-300' 
+                        ? 'bg-[#00E0BA] text-white border-blue-300' 
                         : 'bg-slate-700 text-white border-slate-600'
                     }`}>
                       <span>VS</span>
@@ -728,7 +728,7 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
           <div className="space-y-3">
             <div className="flex items-center justify-between px-1">
               <span className="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                <Swords size={14} className="text-[#007DCC]" />
+                <Swords size={14} className="text-[#00E0BA]" />
                 <span>Babak Semifinal</span>
               </span>
               <span className="text-[10px] font-bold text-slate-400">1A vs 2B &amp; 1B vs 2A</span>
@@ -761,13 +761,13 @@ export const TournamentBracket: React.FC<TournamentBracketProps> = ({
 
           {/* CONNECTOR: SEMIFINAL KE FINAL */}
           <div className="flex flex-col items-center py-2 relative">
-            <div className="w-1 h-6 bg-gradient-to-b from-[#007DCC] to-[#007DCC] rounded-full" />
-            <div className="px-4 py-2 bg-blue-50 border-2 border-[#007DCC] rounded-full text-xs font-black uppercase tracking-wider text-[#007DCC] flex items-center gap-2 shadow-xs">
+            <div className="w-1 h-6 bg-gradient-to-b from-[#00E0BA] to-[#00E0BA] rounded-full" />
+            <div className="px-4 py-2 bg-blue-50 border-2 border-[#00E0BA] rounded-full text-xs font-black uppercase tracking-wider text-[#00E0BA] flex items-center gap-2 shadow-xs">
               <GitBranch size={14} />
               <span>Pemenang Semifinal Lolos ke Babak Final</span>
               <ArrowDown size={14} />
             </div>
-            <div className="w-1 h-6 bg-gradient-to-b from-[#007DCC] to-amber-500 rounded-full" />
+            <div className="w-1 h-6 bg-gradient-to-b from-[#00E0BA] to-amber-500 rounded-full" />
           </div>
 
           {/* GRAND FINAL SECTION */}

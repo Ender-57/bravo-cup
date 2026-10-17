@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #007DCC;
-  --color-gold: #FFB900;
-  --color-pink: #D10056;
-  --color-berry: #B2054C;
-  --bg-main: #F4F7FB;
+  --color-primary: #00E0BA;
+  --color-gold: #FFCF00;
+  --color-pink: #FF3483;
+  --color-berry: #91008D;
+  --bg-main: #FFF1F1;
 }
 
 body {

@@ -281,7 +281,7 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
               <select
                 value={selectedMatchId}
                 onChange={e => handleSelectScheduledMatch(e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#007DCC]"
+                className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#00E0BA]"
               >
                 <option value="">-- Buat Baru / Pilih Tim Manual --</option>
                 {scheduledList.map(m => {
@@ -310,7 +310,7 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
                         }}
                         className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition ${
                           selectedCategory === 'MD'
-                            ? 'bg-[#007DCC] text-white'
+                            ? 'bg-[#00E0BA] text-white'
                             : 'bg-white text-slate-700 border border-slate-200'
                         }`}
                       >
@@ -325,7 +325,7 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
                         }}
                         className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition ${
                           selectedCategory === 'WD'
-                            ? 'bg-[#D10056] text-white'
+                            ? 'bg-[#FF3483] text-white'
                             : 'bg-white text-slate-700 border border-slate-200'
                         }`}
                       >
@@ -364,13 +364,13 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5 mb-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#007DCC]"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#00E0BA]"></span>
                   <span>Tim A (Biru):</span>
                 </label>
                 <select
                   value={teamAId}
                   onChange={e => setTeamAId(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#007DCC]"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#00E0BA]"
                   required
                 >
                   <option value="">-- Pilih Tim A --</option>
@@ -384,13 +384,13 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
 
               <div>
                 <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5 mb-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#D10056]"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#FF3483]"></span>
                   <span>Tim B (Merah):</span>
                 </label>
                 <select
                   value={teamBId}
                   onChange={e => setTeamBId(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#D10056]"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF3483]"
                   required
                 >
                   <option value="">-- Pilih Tim B --</option>
@@ -416,11 +416,11 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
               {/* TIM A BOX */}
               <div className={`p-4 rounded-2xl border-2 transition text-center ${
                 winnerSide === 'A' 
-                  ? 'bg-blue-50/70 border-[#007DCC] shadow-sm' 
+                  ? 'bg-blue-50/70 border-[#00E0BA] shadow-sm' 
                   : 'bg-white border-slate-200'
               }`}>
                 <div className="flex items-center justify-center gap-1.5 mb-1">
-                  <span className="w-2 h-2 rounded-full bg-[#007DCC]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#00E0BA]"></span>
                   <p className="text-xs font-black text-slate-900 truncate max-w-[140px]">
                     {teamA ? teamA.name : 'Tim A'}
                   </p>
@@ -436,7 +436,7 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
                   max={30}
                   value={scoreA}
                   onChange={e => setScoreA(Math.min(30, Math.max(0, parseInt(e.target.value) || 0)))}
-                  className="w-full py-2 bg-white border-2 border-slate-300 focus:border-[#007DCC] rounded-xl text-center font-['Teko',sans-serif] text-5xl font-bold text-[#007DCC] focus:outline-none shadow-xs"
+                  className="w-full py-2 bg-white border-2 border-slate-300 focus:border-[#00E0BA] rounded-xl text-center font-['Teko',sans-serif] text-5xl font-bold text-[#00E0BA] focus:outline-none shadow-xs"
                 />
 
                 {/* Score Steppers */}
@@ -458,7 +458,7 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setScoreA(30)}
-                    className="px-2 py-1 rounded-lg bg-blue-100 hover:bg-blue-200 text-[11px] font-black text-[#007DCC]"
+                    className="px-2 py-1 rounded-lg bg-blue-100 hover:bg-blue-200 text-[11px] font-black text-[#00E0BA]"
                   >
                     30
                   </button>
@@ -468,11 +468,11 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
               {/* TIM B BOX */}
               <div className={`p-4 rounded-2xl border-2 transition text-center ${
                 winnerSide === 'B' 
-                  ? 'bg-rose-50/70 border-[#D10056] shadow-sm' 
+                  ? 'bg-rose-50/70 border-[#FF3483] shadow-sm' 
                   : 'bg-white border-slate-200'
               }`}>
                 <div className="flex items-center justify-center gap-1.5 mb-1">
-                  <span className="w-2 h-2 rounded-full bg-[#D10056]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#FF3483]"></span>
                   <p className="text-xs font-black text-slate-900 truncate max-w-[140px]">
                     {teamB ? teamB.name : 'Tim B'}
                   </p>
@@ -488,7 +488,7 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
                   max={30}
                   value={scoreB}
                   onChange={e => setScoreB(Math.min(30, Math.max(0, parseInt(e.target.value) || 0)))}
-                  className="w-full py-2 bg-white border-2 border-slate-300 focus:border-[#D10056] rounded-xl text-center font-['Teko',sans-serif] text-5xl font-bold text-[#D10056] focus:outline-none shadow-xs"
+                  className="w-full py-2 bg-white border-2 border-slate-300 focus:border-[#FF3483] rounded-xl text-center font-['Teko',sans-serif] text-5xl font-bold text-[#FF3483] focus:outline-none shadow-xs"
                 />
 
                 {/* Score Steppers */}
@@ -510,7 +510,7 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setScoreB(30)}
-                    className="px-2 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-[11px] font-black text-[#D10056]"
+                    className="px-2 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-[11px] font-black text-[#FF3483]"
                   >
                     30
                   </button>
@@ -521,7 +521,7 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
             {/* QUICK SCORE PRESETS */}
             <div className="mt-3 pt-3 border-t border-slate-200">
               <p className="text-[11px] font-bold text-slate-500 mb-1.5 flex items-center gap-1">
-                <Sparkles size={13} className="text-[#007DCC]" />
+                <Sparkles size={13} className="text-[#00E0BA]" />
                 <span>Pilih Cepat Skor Populer (30 Poin):</span>
               </p>
               <div className="flex flex-wrap gap-1.5">
@@ -555,9 +555,9 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
                   </span>
                   <p className="text-[11px] text-slate-500">
                     {winnerSide === 'A' ? (
-                      <span>Tim A: <strong className="text-emerald-700">+{pointDiff}</strong> • Tim B: <strong className="text-[#D10056]">-{pointDiff}</strong></span>
+                      <span>Tim A: <strong className="text-emerald-700">+{pointDiff}</strong> • Tim B: <strong className="text-[#FF3483]">-{pointDiff}</strong></span>
                     ) : winnerSide === 'B' ? (
-                      <span>Tim B: <strong className="text-emerald-700">+{pointDiff}</strong> • Tim A: <strong className="text-[#D10056]">-{pointDiff}</strong></span>
+                      <span>Tim B: <strong className="text-emerald-700">+{pointDiff}</strong> • Tim A: <strong className="text-[#FF3483]">-{pointDiff}</strong></span>
                     ) : (
                       'Skor masih sama (30 poin wajib ada pemenang)'
                     )}
@@ -615,12 +615,12 @@ export const DirectScoreInputModal: React.FC<DirectScoreInputModalProps> = ({
               value={notes}
               onChange={e => setNotes(e.target.value)}
               placeholder="Contoh: Babak penyisihan seru, rubber deuce, WO, dsb."
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-[#007DCC]"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-[#00E0BA]"
             />
           </div>
 
           {errorMsg && (
-            <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl flex items-center gap-2 text-xs font-bold text-[#D10056]">
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl flex items-center gap-2 text-xs font-bold text-[#FF3483]">
               <AlertCircle size={15} className="shrink-0" />
               <span>{errorMsg}</span>
             </div>

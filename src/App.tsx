@@ -359,7 +359,7 @@ export default function App() {
   const totalFinishedCount = matches.filter(m => m.status === 'finished').length;
 
   return (
-    <div className="min-h-screen bg-[#F4F7FB] text-slate-800 flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
+    <div className="min-h-screen bg-[#FFF1F1] text-slate-800 flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
       {/* Top Navbar */}
       <Navbar
         isAdmin={isAdmin}
@@ -384,28 +384,28 @@ export default function App() {
               </h2>
             </div>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Sistem Skor Maksimal <strong className="text-[#007DCC]">30 Poin</strong> • Klasemen Lengkap Putra & Putri dalam 1 Halaman
+              Sistem Skor Maksimal <strong className="text-[#00E0BA]">30 Poin</strong> • Klasemen Lengkap Putra & Putri dalam 1 Halaman
             </p>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
             <div className="bg-blue-50/80 px-3.5 py-2 rounded-2xl border border-blue-200 text-center min-w-[70px]">
-              <p className="text-[10px] uppercase font-bold text-[#007DCC]">Tim Putra</p>
+              <p className="text-[10px] uppercase font-bold text-[#00E0BA]">Tim Putra</p>
               <p className="text-lg font-black text-slate-900 leading-none mt-1">
                 {teams.filter(t => t.category === 'MD').length}
               </p>
             </div>
 
             <div className="bg-rose-50/80 px-3.5 py-2 rounded-2xl border border-rose-200 text-center min-w-[70px]">
-              <p className="text-[10px] uppercase font-bold text-[#D10056]">Tim Putri</p>
+              <p className="text-[10px] uppercase font-bold text-[#FF3483]">Tim Putri</p>
               <p className="text-lg font-black text-slate-900 leading-none mt-1">
                 {teams.filter(t => t.category === 'WD').length}
               </p>
             </div>
 
             <div className="bg-amber-50 px-3.5 py-2 rounded-2xl border border-amber-200 text-center min-w-[70px]">
-              <p className="text-[10px] uppercase font-bold text-[#B2054C]">Live Skor</p>
-              <p className="text-lg font-black text-[#D10056] leading-none mt-1">{totalLiveCount}</p>
+              <p className="text-[10px] uppercase font-bold text-[#91008D]">Live Skor</p>
+              <p className="text-lg font-black text-[#FF3483] leading-none mt-1">{totalLiveCount}</p>
             </div>
 
             <div className="bg-emerald-50/80 px-3.5 py-2 rounded-2xl border border-emerald-200 text-center min-w-[70px]">
@@ -417,7 +417,7 @@ export default function App() {
               <>
                 <button
                   onClick={() => setIsCreateMatchOpen(true)}
-                  className="px-4 py-2.5 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white text-xs font-black rounded-2xl transition shadow-md shadow-blue-500/20 flex items-center gap-1.5"
+                  className="px-4 py-2.5 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white text-xs font-black rounded-2xl transition shadow-md shadow-emerald-500/20 flex items-center gap-1.5"
                 >
                   <Plus size={16} />
                   <span>Buat Laga Baru</span>
@@ -436,7 +436,7 @@ export default function App() {
                   onClick={() => setIsTeamManagerOpen(true)}
                   className="px-3.5 py-2.5 rounded-2xl text-xs font-bold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 transition flex items-center gap-1.5 shadow-xs"
                 >
-                  <Users size={15} className="text-[#007DCC]" />
+                  <Users size={15} className="text-[#00E0BA]" />
                   <span>Kelola Pasangan</span>
                 </button>
               </>
@@ -456,16 +456,16 @@ export default function App() {
           </button>
           <a
             href="#klasemen-putra"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#007DCC] shadow-xs transition flex items-center gap-1.5 shrink-0"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#00E0BA] shadow-xs transition flex items-center gap-1.5 shrink-0"
           >
-            <Trophy size={14} className="text-[#007DCC]" />
+            <Trophy size={14} className="text-[#00E0BA]" />
             <span>1. Klasemen Ganda Putra</span>
           </a>
           <a
             href="#klasemen-putri"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#D10056] shadow-xs transition flex items-center gap-1.5 shrink-0"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#FF3483] shadow-xs transition flex items-center gap-1.5 shrink-0"
           >
-            <Trophy size={14} className="text-[#D10056]" />
+            <Trophy size={14} className="text-[#FF3483]" />
             <span>2. Klasemen Ganda Putri</span>
           </a>
           <a
@@ -477,19 +477,19 @@ export default function App() {
           </a>
           <a
             href="#jadwal-pertandingan"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#007DCC] shadow-xs transition flex items-center gap-1.5 shrink-0"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#00E0BA] shadow-xs transition flex items-center gap-1.5 shrink-0"
           >
-            <Play size={14} className="text-[#007DCC]" />
+            <Play size={14} className="text-[#00E0BA]" />
             <span>4. Jadwal Pertandingan</span>
             {totalLiveCount > 0 && (
-              <span className="w-2 h-2 rounded-full bg-[#D10056] animate-pulse"></span>
+              <span className="w-2 h-2 rounded-full bg-[#FF3483] animate-pulse"></span>
             )}
           </a>
           <a
             href="#riwayat-pertandingan"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#007DCC] shadow-xs transition flex items-center gap-1.5 shrink-0"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-800 hover:text-[#00E0BA] shadow-xs transition flex items-center gap-1.5 shrink-0"
           >
-            <History size={14} className="text-[#007DCC]" />
+            <History size={14} className="text-[#00E0BA]" />
             <span>5. Riwayat Pertandingan ({totalFinishedCount})</span>
           </a>
         </div>
@@ -573,7 +573,7 @@ export default function App() {
               title="badminton icons"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-[#007DCC] transition underline text-[10px]"
+              className="text-slate-400 hover:text-[#00E0BA] transition underline text-[10px]"
             >
               Badminton icons created by Magnific - Flaticon
             </a>
@@ -653,9 +653,9 @@ export default function App() {
         <div className="fixed bottom-6 right-6 z-50 animate-bounce-short">
           <div className={`px-4 py-3 rounded-2xl shadow-xl border text-xs font-bold flex items-center gap-2 text-white ${
             toast.type === 'error'
-              ? 'bg-[#D10056] border-rose-300'
+              ? 'bg-[#FF3483] border-rose-300'
               : toast.type === 'info'
-              ? 'bg-[#007DCC] border-blue-300'
+              ? 'bg-[#00E0BA] border-blue-300'
               : 'bg-emerald-600 border-emerald-400'
           }`}>
             <span>{toast.message}</span>

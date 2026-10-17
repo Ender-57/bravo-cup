@@ -299,12 +299,12 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
         {/* --- SECURITY LOCKOUT SCREEN (30 MINUTES) --- */}
         {isLocked ? (
           <div className="py-2 space-y-4 animate-fadeIn">
-            <div className="w-16 h-16 mx-auto rounded-3xl flex items-center justify-center bg-rose-100 text-[#D10056] border-2 border-rose-300 shadow-lg shadow-rose-500/20 animate-pulse">
+            <div className="w-16 h-16 mx-auto rounded-3xl flex items-center justify-center bg-rose-100 text-[#FF3483] border-2 border-rose-300 shadow-lg shadow-rose-500/20 animate-pulse">
               <ShieldAlert size={34} />
             </div>
 
             <div>
-              <span className="inline-block px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-rose-100 text-[#D10056] border border-rose-300 mb-2">
+              <span className="inline-block px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-rose-100 text-[#FF3483] border border-rose-300 mb-2">
                 Akses Terkunci Sementara
               </span>
               <h3 className="text-lg font-black text-slate-900">
@@ -318,10 +318,10 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
             {/* Live Digital Countdown */}
             <div className="p-4 bg-slate-900 text-white rounded-2xl border-2 border-rose-500 shadow-inner text-center">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 flex items-center justify-center gap-1.5">
-                <Clock size={12} className="text-[#FFB900]" />
+                <Clock size={12} className="text-[#FFCF00]" />
                 <span>Waktu Tunggu Tersisa:</span>
               </p>
-              <div className="font-['Teko',sans-serif] text-5xl font-black tracking-widest text-[#FFB900]">
+              <div className="font-['Teko',sans-serif] text-5xl font-black tracking-widest text-[#FFCF00]">
                 {formatCountdown(remainingSeconds)}
               </div>
               <p className="text-[11px] text-slate-300 mt-1">
@@ -351,7 +351,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
             <div className={`w-14 h-14 mx-auto mb-3 rounded-2xl flex items-center justify-center shadow-md ${
               isAdmin
                 ? 'bg-gradient-to-tr from-emerald-500 to-teal-400 text-white'
-                : 'bg-gradient-to-tr from-[#FFB900] to-amber-300 text-slate-950'
+                : 'bg-gradient-to-tr from-[#FFCF00] to-amber-300 text-slate-950'
             }`}>
               {activeTab === 'changePin' ? (
                 <KeyRound size={28} />
@@ -391,7 +391,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                 }}
                 className={`flex-1 py-1.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 ${
                   activeTab === 'changePin'
-                    ? 'bg-[#007DCC] text-white shadow-xs'
+                    ? 'bg-[#00E0BA] text-white shadow-xs'
                     : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
@@ -430,7 +430,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                           setActiveTab('changePin');
                           setActivePinField('new');
                         }}
-                        className="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-[#007DCC] hover:bg-[#006bb0] text-white text-xs font-bold rounded-xl transition shadow-xs"
+                        className="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-[#00E0BA] hover:bg-[#00B89A] text-white text-xs font-bold rounded-xl transition shadow-xs"
                       >
                         <KeyRound size={14} /> Ganti PIN
                       </button>
@@ -440,7 +440,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                           onLogout();
                           onClose();
                         }}
-                        className="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-rose-50 hover:bg-rose-100 text-[#D10056] border border-rose-200 text-xs font-bold rounded-xl transition"
+                        className="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-rose-50 hover:bg-rose-100 text-[#FF3483] border border-rose-200 text-xs font-bold rounded-xl transition"
                       >
                         <Lock size={14} /> Keluar Admin
                       </button>
@@ -473,7 +473,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                           key={idx}
                           className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${
                             pinInput.length > idx
-                              ? 'bg-[#007DCC] border-[#007DCC] scale-110 shadow-sm'
+                              ? 'bg-[#00E0BA] border-[#00E0BA] scale-110 shadow-sm'
                               : 'border-slate-300 bg-slate-100'
                           }`}
                         />
@@ -489,13 +489,13 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                     </div>
 
                     {showLoginPin && pinInput && (
-                      <p className="text-xs font-mono font-bold text-[#007DCC] mb-2 tracking-widest">
+                      <p className="text-xs font-mono font-bold text-[#00E0BA] mb-2 tracking-widest">
                         {pinInput}
                       </p>
                     )}
 
                     {errorMsg && (
-                      <p className="text-xs text-[#D10056] mb-3 flex items-center justify-center gap-1 font-semibold">
+                      <p className="text-xs text-[#FF3483] mb-3 flex items-center justify-center gap-1 font-semibold">
                         <ShieldAlert size={14} /> {errorMsg}
                       </p>
                     )}
@@ -583,7 +583,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                         placeholder="****"
                         className={`w-full px-3 py-2 bg-slate-50 border rounded-xl text-center text-lg font-mono tracking-widest text-slate-900 focus:outline-none transition ${
                           activePinField === 'old'
-                            ? 'border-[#007DCC] ring-2 ring-blue-100'
+                            ? 'border-[#00E0BA] ring-2 ring-blue-100'
                             : 'border-slate-300'
                         }`}
                       />
@@ -605,9 +605,9 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                       onFocus={() => setActivePinField('new')}
                       onChange={e => setNewPinInput(e.target.value.replace(/\D/g, '').slice(0, 4))}
                       placeholder="****"
-                      className={`w-full px-3 py-2 bg-slate-50 border rounded-xl text-center text-lg font-mono tracking-widest text-[#007DCC] focus:outline-none transition ${
+                      className={`w-full px-3 py-2 bg-slate-50 border rounded-xl text-center text-lg font-mono tracking-widest text-[#00E0BA] focus:outline-none transition ${
                         activePinField === 'new'
-                          ? 'border-[#007DCC] ring-2 ring-blue-100'
+                          ? 'border-[#00E0BA] ring-2 ring-blue-100'
                           : 'border-slate-300'
                       }`}
                     />
@@ -628,9 +628,9 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                       onFocus={() => setActivePinField('confirm')}
                       onChange={e => setConfirmPinInput(e.target.value.replace(/\D/g, '').slice(0, 4))}
                       placeholder="****"
-                      className={`w-full px-3 py-2 bg-slate-50 border rounded-xl text-center text-lg font-mono tracking-widest text-[#007DCC] focus:outline-none transition ${
+                      className={`w-full px-3 py-2 bg-slate-50 border rounded-xl text-center text-lg font-mono tracking-widest text-[#00E0BA] focus:outline-none transition ${
                         activePinField === 'confirm'
-                          ? 'border-[#007DCC] ring-2 ring-blue-100'
+                          ? 'border-[#00E0BA] ring-2 ring-blue-100'
                           : 'border-slate-300'
                       }`}
                     />
@@ -687,7 +687,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                 </div>
 
                 {errorMsg && (
-                  <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-[#D10056] font-semibold flex items-center gap-1.5">
+                  <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-[#FF3483] font-semibold flex items-center gap-1.5">
                     <ShieldAlert size={15} className="shrink-0" />
                     <span>{errorMsg}</span>
                   </div>
@@ -714,7 +714,7 @@ export const AdminPinModal: React.FC<AdminPinModalProps> = ({
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2.5 text-xs font-black bg-[#FFB900] hover:bg-amber-400 active:scale-95 text-slate-950 rounded-xl transition shadow-md shadow-amber-500/20 flex items-center justify-center gap-1.5"
+                    className="flex-1 py-2.5 text-xs font-black bg-[#FFCF00] hover:bg-amber-400 active:scale-95 text-slate-950 rounded-xl transition shadow-md shadow-amber-500/20 flex items-center justify-center gap-1.5"
                   >
                     <Check size={16} />
                     <span>Simpan PIN Baru</span>

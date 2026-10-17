@@ -124,7 +124,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#007DCC] flex items-center justify-center font-bold">
+            <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#00E0BA] flex items-center justify-center font-bold">
               <Play size={20} />
             </div>
             <div>
@@ -149,7 +149,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
             onClick={() => handleCategoryChange('MD')}
             className={`flex-1 py-2 text-xs font-bold rounded-xl transition ${
               selectedCategory === 'MD'
-                ? 'bg-[#007DCC] text-white shadow-sm'
+                ? 'bg-[#00E0BA] text-white shadow-sm'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -160,7 +160,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
             onClick={() => handleCategoryChange('WD')}
             className={`flex-1 py-2 text-xs font-bold rounded-xl transition ${
               selectedCategory === 'WD'
-                ? 'bg-[#D10056] text-white shadow-sm'
+                ? 'bg-[#FF3483] text-white shadow-sm'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -171,8 +171,8 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
         {/* Quick Round-Robin Generator Button */}
         <div className="mb-4 p-3.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl flex items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-bold text-[#007DCC] flex items-center gap-1.5">
-              <Zap size={14} className="text-[#FFB900]" />
+            <p className="text-xs font-bold text-[#00E0BA] flex items-center gap-1.5">
+              <Zap size={14} className="text-[#FFCF00]" />
               Generator Otomatis Round-Robin
             </p>
             <p className="text-[11px] text-slate-500 mt-0.5">
@@ -185,7 +185,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
               onGenerateRoundRobin(selectedGroup, selectedCategory);
               onClose();
             }}
-            className="px-3.5 py-1.5 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white text-xs font-bold rounded-xl shrink-0 transition shadow-sm"
+            className="px-3.5 py-1.5 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white text-xs font-bold rounded-xl shrink-0 transition shadow-sm"
           >
             Generate
           </button>
@@ -205,7 +205,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
                 setTeamAId('');
                 setTeamBId('');
               }}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
             >
               {groups.map(g => (
                 <option key={g} value={g}>{g}</option>
@@ -216,13 +216,13 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
           {/* Teams Selection */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-[#007DCC] block mb-1">
+              <label className="text-xs font-semibold text-[#00E0BA] block mb-1">
                 Tim 1 (Biru):
               </label>
               <select
                 value={teamAId}
                 onChange={e => setTeamAId(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
               >
                 <option value="">-- Pilih Tim 1 --</option>
                 {availableTeams.map(t => (
@@ -234,13 +234,13 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-[#D10056] block mb-1">
+              <label className="text-xs font-semibold text-[#FF3483] block mb-1">
                 Tim 2 (Merah):
               </label>
               <select
                 value={teamBId}
                 onChange={e => setTeamBId(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#D10056]"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#FF3483]"
               >
                 <option value="">-- Pilih Tim 2 --</option>
                 {availableTeams.map(t => (
@@ -255,7 +255,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
           {/* EDIT TANGGAL & WAKTU PERTANDINGAN */}
           <div>
             <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5 mb-1">
-              <Calendar size={13} className="text-[#007DCC]" />
+              <Calendar size={13} className="text-[#00E0BA]" />
               <span>Tanggal & Waktu Pertandingan:</span>
             </label>
             <input
@@ -263,7 +263,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
               required
               value={matchDate}
               onChange={e => setMatchDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
             />
             <p className="text-[10px] text-slate-400 mt-1 flex items-center gap-1">
               <Clock size={10} />
@@ -282,7 +282,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
                 value={court}
                 onChange={e => setCourt(e.target.value)}
                 placeholder="Lapangan 1"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
               />
             </div>
 
@@ -304,7 +304,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
                   type="button"
                   onClick={() => setStatusMode('live')}
                   className={`py-2 px-1 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 ${
-                    statusMode === 'live' ? 'bg-[#007DCC] text-white shadow-sm' : 'bg-slate-100 text-slate-600'
+                    statusMode === 'live' ? 'bg-[#00E0BA] text-white shadow-sm' : 'bg-slate-100 text-slate-600'
                   }`}
                 >
                   <Play size={11} /> Live Score
@@ -337,7 +337,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
 
               <div className="grid grid-cols-2 gap-3 items-center">
                 <div className="bg-white p-2.5 rounded-xl border border-slate-200 text-center">
-                  <span className="text-[11px] font-bold text-[#007DCC] block truncate">
+                  <span className="text-[11px] font-bold text-[#00E0BA] block truncate">
                     Skor Tim 1 (Biru):
                   </span>
                   <input
@@ -346,13 +346,13 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
                     max={30}
                     value={scoreA}
                     onChange={e => setScoreA(Math.min(30, Math.max(0, parseInt(e.target.value) || 0)))}
-                    className="w-full text-center text-3xl font-['Teko',sans-serif] font-bold text-[#007DCC] focus:outline-none"
+                    className="w-full text-center text-3xl font-['Teko',sans-serif] font-bold text-[#00E0BA] focus:outline-none"
                   />
                   <div className="flex gap-1 mt-1 justify-center">
                     <button
                       type="button"
                       onClick={() => setScoreA(30)}
-                      className="px-2 py-0.5 rounded bg-blue-50 text-[10px] font-black text-[#007DCC] border border-blue-200"
+                      className="px-2 py-0.5 rounded bg-blue-50 text-[10px] font-black text-[#00E0BA] border border-blue-200"
                     >
                       30
                     </button>
@@ -360,7 +360,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
                 </div>
 
                 <div className="bg-white p-2.5 rounded-xl border border-slate-200 text-center">
-                  <span className="text-[11px] font-bold text-[#D10056] block truncate">
+                  <span className="text-[11px] font-bold text-[#FF3483] block truncate">
                     Skor Tim 2 (Merah):
                   </span>
                   <input
@@ -369,13 +369,13 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
                     max={30}
                     value={scoreB}
                     onChange={e => setScoreB(Math.min(30, Math.max(0, parseInt(e.target.value) || 0)))}
-                    className="w-full text-center text-3xl font-['Teko',sans-serif] font-bold text-[#D10056] focus:outline-none"
+                    className="w-full text-center text-3xl font-['Teko',sans-serif] font-bold text-[#FF3483] focus:outline-none"
                   />
                   <div className="flex gap-1 mt-1 justify-center">
                     <button
                       type="button"
                       onClick={() => setScoreB(30)}
-                      className="px-2 py-0.5 rounded bg-rose-50 text-[10px] font-black text-[#D10056] border border-rose-200"
+                      className="px-2 py-0.5 rounded bg-rose-50 text-[10px] font-black text-[#FF3483] border border-rose-200"
                     >
                       30
                     </button>
@@ -395,12 +395,12 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
               value={notes}
               onChange={e => setNotes(e.target.value)}
               placeholder="Contoh: Partai penyisihan grup pembuka"
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
             />
           </div>
 
           {errorMsg && (
-            <p className="text-xs text-[#D10056] flex items-center gap-1 font-semibold">
+            <p className="text-xs text-[#FF3483] flex items-center gap-1 font-semibold">
               <AlertCircle size={14} /> {errorMsg}
             </p>
           )}
@@ -411,7 +411,7 @@ export const CreateMatchModal: React.FC<CreateMatchModalProps> = ({
               className={`w-full py-3 active:scale-95 text-white text-xs font-black uppercase tracking-wider rounded-xl transition shadow-md flex items-center justify-center gap-1.5 ${
                 statusMode === 'finished'
                   ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20'
-                  : 'bg-[#007DCC] hover:bg-[#006bb0] shadow-blue-500/20'
+                  : 'bg-[#00E0BA] hover:bg-[#00B89A] shadow-emerald-500/20'
               }`}
             >
               {statusMode === 'finished' ? (

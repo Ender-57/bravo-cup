@@ -47,7 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Brand & Tournament Name */}
         <div className="flex items-center justify-between w-full md:w-auto">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#007DCC] to-[#0098f7] text-white flex items-center justify-center font-black shadow-md shadow-blue-500/20">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#00E0BA] to-[#00B89A] text-white flex items-center justify-center font-black shadow-md shadow-emerald-500/20">
               <span className="text-xl">🏸</span>
             </div>
             <div>
@@ -68,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={onOpenPinModal}
               className={`p-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                 isAdmin
-                  ? 'bg-amber-100 text-[#B2054C] border border-amber-300'
+                  ? 'bg-amber-100 text-[#91008D] border border-amber-300'
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
@@ -82,16 +82,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center bg-slate-100 border border-slate-200 p-1 rounded-2xl w-full sm:w-auto justify-center overflow-x-auto scrollbar-none">
           <button
             onClick={() => handleScroll('klasemen-putra')}
-            className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#007DCC] hover:bg-white transition-all flex items-center gap-1.5 shrink-0"
+            className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#00E0BA] hover:bg-white transition-all flex items-center gap-1.5 shrink-0"
           >
-            <Trophy size={13} className="text-[#007DCC]" />
+            <Trophy size={13} className="text-[#00E0BA]" />
             <span>Peringkat Putra</span>
           </button>
           <button
             onClick={() => handleScroll('klasemen-putri')}
-            className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#D10056] hover:bg-white transition-all flex items-center gap-1.5 shrink-0"
+            className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#FF3483] hover:bg-white transition-all flex items-center gap-1.5 shrink-0"
           >
-            <Trophy size={13} className="text-[#D10056]" />
+            <Trophy size={13} className="text-[#FF3483]" />
             <span>Peringkat Putri</span>
           </button>
           <button
@@ -103,16 +103,16 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
           <button
             onClick={() => handleScroll('jadwal-pertandingan')}
-            className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#007DCC] hover:bg-white transition-all flex items-center gap-1.5 shrink-0"
+            className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#00E0BA] hover:bg-white transition-all flex items-center gap-1.5 shrink-0"
           >
-            <Calendar size={13} className="text-[#007DCC]" />
+            <Calendar size={13} className="text-[#00E0BA]" />
             <span>Jadwal</span>
           </button>
           <button
             onClick={() => handleScroll('riwayat-pertandingan')}
-            className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#007DCC] hover:bg-white transition-all flex items-center gap-1.5 shrink-0"
+            className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#00E0BA] hover:bg-white transition-all flex items-center gap-1.5 shrink-0"
           >
-            <History size={13} className="text-[#007DCC]" />
+            <History size={13} className="text-[#00E0BA]" />
             <span>Riwayat</span>
           </button>
         </div>
@@ -125,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={onOpenTeamManager}
               className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition border border-slate-200"
             >
-              <Users size={14} className="text-[#007DCC]" />
+              <Users size={14} className="text-[#00E0BA]" />
               <span>Kelola Tim</span>
             </button>
           )}
@@ -135,7 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={onOpenPinModal}
             className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-xl transition ${
               isAdmin
-                ? 'bg-amber-100 text-[#B2054C] border border-amber-300'
+                ? 'bg-amber-100 text-[#91008D] border border-amber-300'
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
             }`}
           >
@@ -167,7 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }}
                   className="w-full text-left px-3 py-2 hover:bg-slate-50 flex items-center gap-2 transition text-slate-700 font-medium"
                 >
-                  <KeyRound size={14} className="text-[#007DCC]" />
+                  <KeyRound size={14} className="text-[#00E0BA]" />
                   <span>Ganti PIN Administrator</span>
                 </button>
 
@@ -178,12 +178,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }}
                   className="w-full text-left px-3 py-2 hover:bg-slate-50 flex items-center gap-2 transition"
                 >
-                  <Download size={14} className="text-[#007DCC]" />
+                  <Download size={14} className="text-[#00E0BA]" />
                   <span>Unduh Cadangan (Backup JSON)</span>
                 </button>
 
                 <label className="w-full text-left px-3 py-2 hover:bg-slate-50 flex items-center gap-2 transition cursor-pointer">
-                  <Upload size={14} className="text-[#007DCC]" />
+                  <Upload size={14} className="text-[#00E0BA]" />
                   <span>Pulihkan Data (Import JSON)</span>
                   <input
                     type="file"
@@ -202,7 +202,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       setShowSettingsMenu(false);
                       setShowResetConfirm(true);
                     }}
-                    className="w-full text-left px-3 py-2 rounded-xl text-[#D10056] hover:bg-rose-50 flex items-center gap-2 transition font-medium"
+                    className="w-full text-left px-3 py-2 rounded-xl text-[#FF3483] hover:bg-rose-50 flex items-center gap-2 transition font-medium"
                   >
                     <RotateCcw size={14} />
                     <span>Reset Data ke Awal</span>
@@ -218,7 +218,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {showResetConfirm && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center">
-            <div className="w-12 h-12 rounded-full bg-rose-100 text-[#D10056] mx-auto flex items-center justify-center mb-3">
+            <div className="w-12 h-12 rounded-full bg-rose-100 text-[#FF3483] mx-auto flex items-center justify-center mb-3">
               <RotateCcw size={24} />
             </div>
             <h4 className="text-base font-bold text-slate-900 mb-1">
@@ -242,7 +242,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onResetData();
                   setShowResetConfirm(false);
                 }}
-                className="flex-1 py-2 px-3 bg-[#D10056] hover:bg-[#b2054c] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-sm"
+                className="flex-1 py-2 px-3 bg-[#FF3483] hover:bg-[#91008D] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-sm"
               >
                 Ya, Reset
               </button>

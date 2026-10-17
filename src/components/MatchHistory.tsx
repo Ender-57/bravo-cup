@@ -170,7 +170,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-4">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#007DCC] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#00E0BA] flex items-center justify-center font-bold">
               <History size={18} />
             </div>
             <h3 className="text-lg font-extrabold text-slate-900">Riwayat Pertandingan Tersimpan</h3>
@@ -181,7 +181,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
         </div>
 
         <div className="text-xs font-bold text-slate-600 bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200">
-          Total Rekam: <span className="text-[#007DCC] font-black">{finishedMatches.length} Laga</span>
+          Total Rekam: <span className="text-[#00E0BA] font-black">{finishedMatches.length} Laga</span>
         </div>
       </div>
 
@@ -194,7 +194,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             placeholder="Cari pemain / tim..."
-            className="w-full pl-10 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#007DCC]"
+            className="w-full pl-10 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#00E0BA]"
           />
         </div>
 
@@ -202,7 +202,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
           <select
             value={selectedCategoryFilter}
             onChange={e => setSelectedCategoryFilter(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-[#007DCC]"
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-[#00E0BA]"
           >
             <option value="ALL">Semua Kategori</option>
             <option value="MD">Ganda Putra (MD)</option>
@@ -214,7 +214,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
           <select
             value={selectedGroupFilter}
             onChange={e => setSelectedGroupFilter(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-[#007DCC]"
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-[#00E0BA]"
           >
             <option value="ALL">Semua Grup</option>
             <option value="Grup A">Grup A</option>
@@ -265,7 +265,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                 {/* Top Meta info */}
                 <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 border-b border-slate-200/80 pb-2 mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-[#007DCC] bg-blue-100/70 px-2 py-0.5 rounded-lg border border-blue-200">
+                    <span className="font-bold text-[#00E0BA] bg-blue-100/70 px-2 py-0.5 rounded-lg border border-blue-200">
                       {m.code}
                     </span>
                     <span className="font-semibold text-slate-700">
@@ -294,7 +294,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                         <span className={`text-sm font-bold truncate ${isWinnerA ? 'text-slate-900 font-extrabold' : 'text-slate-700'}`}>
                           {teamA.name}
                         </span>
-                        {isWinnerA && <Trophy size={14} className="text-[#FFB900] shrink-0" />}
+                        {isWinnerA && <Trophy size={14} className="text-[#FFCF00] shrink-0" />}
                       </div>
                       <p className="text-[11px] text-slate-500 truncate">
                         {teamA.player1} & {teamA.player2}
@@ -304,7 +304,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                       <span className="text-xs font-black block text-slate-900">
                         {primarySet.scoreA} Poin
                       </span>
-                      <span className={`text-[10px] font-bold ${diffA > 0 ? 'text-emerald-700' : 'text-[#D10056]'}`}>
+                      <span className={`text-[10px] font-bold ${diffA > 0 ? 'text-emerald-700' : 'text-[#FF3483]'}`}>
                         Selisih {diffA > 0 ? `+${diffA}` : diffA}
                       </span>
                     </div>
@@ -328,13 +328,13 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                       <span className="text-xs font-black block text-slate-900">
                         {primarySet.scoreB} Poin
                       </span>
-                      <span className={`text-[10px] font-bold ${diffB > 0 ? 'text-emerald-700' : 'text-[#D10056]'}`}>
+                      <span className={`text-[10px] font-bold ${diffB > 0 ? 'text-emerald-700' : 'text-[#FF3483]'}`}>
                         Selisih {diffB > 0 ? `+${diffB}` : diffB}
                       </span>
                     </div>
                     <div className="min-w-0 text-right">
                       <div className="flex items-center md:justify-end gap-1.5">
-                        {isWinnerB && <Trophy size={14} className="text-[#FFB900] shrink-0" />}
+                        {isWinnerB && <Trophy size={14} className="text-[#FFCF00] shrink-0" />}
                         <span className={`text-sm font-bold truncate ${isWinnerB ? 'text-slate-900 font-extrabold' : 'text-slate-700'}`}>
                           {teamB.name}
                         </span>
@@ -356,7 +356,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                     {/* Share WA Button */}
                     <button
                       onClick={() => handleShare(m)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white text-xs font-bold rounded-xl transition shadow-sm"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white text-xs font-bold rounded-xl transition shadow-sm"
                       title="Kirim ke WhatsApp"
                     >
                       <Share2 size={13} />
@@ -378,7 +378,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                     {isAdmin && (
                       <button
                         onClick={() => handleOpenEdit(m)}
-                        className="flex items-center gap-1 px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-[#B2054C] text-xs font-bold rounded-xl transition border border-amber-200 shadow-xs"
+                        className="flex items-center gap-1 px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-[#91008D] text-xs font-bold rounded-xl transition border border-amber-200 shadow-xs"
                         title="Edit Skor & Detail Pertandingan"
                       >
                         <Edit3 size={13} />
@@ -390,7 +390,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                     {isAdmin && (
                       <button
                         onClick={() => setMatchToDelete(m)}
-                        className="p-1.5 text-slate-400 hover:text-[#D10056] hover:bg-rose-50 rounded-xl transition border border-transparent hover:border-rose-200"
+                        className="p-1.5 text-slate-400 hover:text-[#FF3483] hover:bg-rose-50 rounded-xl transition border border-transparent hover:border-rose-200"
                         title="Hapus Pertandingan"
                       >
                         <Trash2 size={14} />
@@ -411,7 +411,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-amber-100 text-[#B2054C] flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-amber-100 text-[#91008D] flex items-center justify-center font-bold">
                   <Edit3 size={20} />
                 </div>
                 <div>
@@ -438,7 +438,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
               <div className="grid grid-cols-2 gap-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
                 {/* Team 1 */}
                 <div className="space-y-1.5">
-                  <span className="text-[11px] font-black uppercase text-[#007DCC] block truncate">
+                  <span className="text-[11px] font-black uppercase text-[#00E0BA] block truncate">
                     🔵 {teamMap.get(matchToEdit.teamAId)?.name}
                   </span>
                   <p className="text-[10px] text-slate-500 truncate">
@@ -455,14 +455,14 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                       required
                       value={editScoreA}
                       onChange={e => setEditScoreA(parseInt(e.target.value) || 0)}
-                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xl font-bold text-slate-900 text-center focus:outline-none focus:border-[#007DCC]"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xl font-bold text-slate-900 text-center focus:outline-none focus:border-[#00E0BA]"
                     />
                   </div>
                 </div>
 
                 {/* Team 2 */}
                 <div className="space-y-1.5">
-                  <span className="text-[11px] font-black uppercase text-[#D10056] block truncate">
+                  <span className="text-[11px] font-black uppercase text-[#FF3483] block truncate">
                     🔴 {teamMap.get(matchToEdit.teamBId)?.name}
                   </span>
                   <p className="text-[10px] text-slate-500 truncate">
@@ -479,7 +479,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                       required
                       value={editScoreB}
                       onChange={e => setEditScoreB(parseInt(e.target.value) || 0)}
-                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xl font-bold text-slate-900 text-center focus:outline-none focus:border-[#D10056]"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xl font-bold text-slate-900 text-center focus:outline-none focus:border-[#FF3483]"
                     />
                   </div>
                 </div>
@@ -488,18 +488,18 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
               {/* Dynamic Point Difference & Winner preview */}
               <div className="p-3 bg-gradient-to-r from-blue-50 to-amber-50 border border-blue-100 rounded-2xl flex items-center justify-between text-xs">
                 <div className="flex items-center gap-1.5">
-                  <ArrowUpDown size={14} className="text-[#007DCC]" />
+                  <ArrowUpDown size={14} className="text-[#00E0BA]" />
                   <span className="text-slate-600">Selisih Poin Dihitung:</span>
                 </div>
                 <div className="font-extrabold text-slate-900">
                   {editScoreA !== editScoreB ? (
                     <span>
                       {teamMap.get(matchToEdit.teamAId)?.name} (
-                      <span className={editScoreA - editScoreB > 0 ? 'text-emerald-700' : 'text-[#D10056]'}>
+                      <span className={editScoreA - editScoreB > 0 ? 'text-emerald-700' : 'text-[#FF3483]'}>
                         {editScoreA - editScoreB > 0 ? `+${editScoreA - editScoreB}` : editScoreA - editScoreB}
                       </span>
                       ) vs {teamMap.get(matchToEdit.teamBId)?.name} (
-                      <span className={editScoreB - editScoreA > 0 ? 'text-emerald-700' : 'text-[#D10056]'}>
+                      <span className={editScoreB - editScoreA > 0 ? 'text-emerald-700' : 'text-[#FF3483]'}>
                         {editScoreB - editScoreA > 0 ? `+${editScoreB - editScoreA}` : editScoreB - editScoreA}
                       </span>
                       )
@@ -521,7 +521,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                     value={editCourt}
                     onChange={e => setEditCourt(e.target.value)}
                     placeholder="Lapangan 1"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                   />
                 </div>
 
@@ -532,7 +532,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                   <select
                     value={editStatus}
                     onChange={e => setEditStatus(e.target.value as 'finished' | 'live')}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                   >
                     <option value="finished">Selesai (Masuk Klasemen)</option>
                     <option value="live">Kembalikan ke LIVE (Buka Papan Skor)</option>
@@ -543,7 +543,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
               {/* Tanggal & Waktu Pertandingan */}
               <div>
                 <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5 mb-1">
-                  <Calendar size={13} className="text-[#007DCC]" />
+                  <Calendar size={13} className="text-[#00E0BA]" />
                   <span>Tanggal & Waktu Pertandingan:</span>
                 </label>
                 <input
@@ -551,7 +551,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                   required
                   value={editDate}
                   onChange={e => setEditDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                 />
                 <p className="text-[10px] text-slate-400 mt-1">
                   Pilih tanggal dan jam pertandingan ini berlangsung untuk sinkronisasi riwayat & WhatsApp.
@@ -568,12 +568,12 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                   value={editNotes}
                   onChange={e => setEditNotes(e.target.value)}
                   placeholder="Contoh: Pertandingan 30 poin dramatis"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                 />
               </div>
 
               {editError && (
-                <p className="text-xs text-[#D10056] flex items-center gap-1 font-semibold">
+                <p className="text-xs text-[#FF3483] flex items-center gap-1 font-semibold">
                   <AlertTriangle size={14} /> {editError}
                 </p>
               )}
@@ -589,7 +589,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 px-3 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-md shadow-blue-500/20 flex items-center justify-center gap-1.5"
+                  className="flex-1 py-2.5 px-3 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-md shadow-emerald-500/20 flex items-center justify-center gap-1.5"
                 >
                   <Check size={15} />
                   <span>Simpan Perubahan</span>
@@ -604,7 +604,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
       {matchToDelete && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center">
-            <div className="w-12 h-12 rounded-full bg-rose-100 text-[#D10056] mx-auto flex items-center justify-center mb-3">
+            <div className="w-12 h-12 rounded-full bg-rose-100 text-[#FF3483] mx-auto flex items-center justify-center mb-3">
               <AlertTriangle size={24} />
             </div>
             <h4 className="text-base font-bold text-slate-900 mb-1">
@@ -625,7 +625,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({
               <button
                 type="button"
                 onClick={handleConfirmDeleteMatch}
-                className="flex-1 py-2 px-3 bg-[#D10056] hover:bg-[#b2054c] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-sm"
+                className="flex-1 py-2 px-3 bg-[#FF3483] hover:bg-[#91008D] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-sm"
               >
                 Ya, Hapus
               </button>

@@ -113,7 +113,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-blue-50 text-[#007DCC] flex items-center justify-center font-bold shadow-xs">
+            <div className="w-10 h-10 rounded-2xl bg-blue-50 text-[#00E0BA] flex items-center justify-center font-bold shadow-xs">
               <Users size={22} />
             </div>
             <div>
@@ -146,7 +146,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                 }}
                 className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition ${
                   selectedCategory === 'MD'
-                    ? 'bg-[#007DCC] text-white shadow-xs'
+                    ? 'bg-[#00E0BA] text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -160,7 +160,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                 }}
                 className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition ${
                   selectedCategory === 'WD'
-                    ? 'bg-[#D10056] text-white shadow-xs'
+                    ? 'bg-[#FF3483] text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -182,7 +182,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Cari pasangan / pemain..."
-                className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
               />
             </div>
 
@@ -199,7 +199,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 shadow-xs ${
                 showForm
                   ? 'bg-slate-200 hover:bg-slate-300 text-slate-700'
-                  : 'bg-[#007DCC] hover:bg-[#006bb0] text-white'
+                  : 'bg-[#00E0BA] hover:bg-[#00B89A] text-white'
               }`}
             >
               <UserPlus size={14} />
@@ -217,7 +217,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
               <form onSubmit={handleSubmit} className="space-y-3">
                 <div className="flex items-center justify-between border-b border-slate-200/80 pb-2">
                   <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-                    <UserPlus size={15} className="text-[#007DCC]" />
+                    <UserPlus size={15} className="text-[#00E0BA]" />
                     {editingTeamId ? 'Edit Pasangan' : 'Daftar Pasangan Baru'}
                   </h4>
                   {editingTeamId && (
@@ -241,7 +241,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                     value={player1}
                     onChange={e => setPlayer1(e.target.value)}
                     placeholder="Contoh: Hendra Setiawan"
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                   />
                 </div>
 
@@ -255,7 +255,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                     value={player2}
                     onChange={e => setPlayer2(e.target.value)}
                     placeholder="Contoh: Mohammad Ahsan"
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                   />
                 </div>
 
@@ -268,7 +268,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                     value={teamName}
                     onChange={e => setTeamName(e.target.value)}
                     placeholder="Contoh: The Daddies"
-                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                   />
                 </div>
 
@@ -280,7 +280,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                     <select
                       value={group}
                       onChange={e => setGroup(e.target.value)}
-                      className="w-full px-2.5 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                      className="w-full px-2.5 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                     >
                       <option value="Grup A">Grup A</option>
                       <option value="Grup B">Grup B</option>
@@ -298,13 +298,13 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                       value={clubOrOrigin}
                       onChange={e => setClubOrOrigin(e.target.value)}
                       placeholder="PB Jaya / RT 04"
-                      className="w-full px-2.5 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#007DCC]"
+                      className="w-full px-2.5 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#00E0BA]"
                     />
                   </div>
                 </div>
 
                 {errorMsg && (
-                  <p className="text-xs text-[#D10056] flex items-center gap-1 font-semibold">
+                  <p className="text-xs text-[#FF3483] flex items-center gap-1 font-semibold">
                     <AlertCircle size={14} /> {errorMsg}
                   </p>
                 )}
@@ -319,7 +319,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-[#007DCC] hover:bg-[#006bb0] active:scale-95 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm"
+                    className="flex-1 py-2 bg-[#00E0BA] hover:bg-[#00B89A] active:scale-95 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm"
                   >
                     <Check size={15} />
                     <span>{editingTeamId ? 'Simpan' : 'Daftarkan'}</span>
@@ -342,7 +342,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowForm(true)}
-                  className="text-xs font-bold text-[#007DCC] hover:underline flex items-center gap-1"
+                  className="text-xs font-bold text-[#00E0BA] hover:underline flex items-center gap-1"
                 >
                   <UserPlus size={13} />
                   <span>+ Tambah Tim Baru</span>
@@ -365,7 +365,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                     <button
                       type="button"
                       onClick={() => setShowForm(true)}
-                      className="mt-3 px-4 py-2 bg-[#007DCC] text-white text-xs font-bold rounded-xl shadow-xs hover:bg-[#006bb0] transition"
+                      className="mt-3 px-4 py-2 bg-[#00E0BA] text-white text-xs font-bold rounded-xl shadow-xs hover:bg-[#00B89A] transition"
                     >
                       + Tambah Pasangan Pertama
                     </button>
@@ -380,13 +380,13 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                         key={t.id}
                         className={`p-3.5 bg-white border rounded-2xl flex items-center justify-between gap-3 transition-all shadow-xs hover:shadow-sm ${
                           editingTeamId === t.id
-                            ? 'border-[#007DCC] ring-2 ring-blue-500/20 bg-blue-50/30'
+                            ? 'border-[#00E0BA] ring-2 ring-blue-500/20 bg-blue-50/30'
                             : 'border-slate-200/90 hover:border-slate-300'
                         }`}
                       >
                         <div className="min-w-0 flex items-start gap-2.5">
                           <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 ${
-                            isMD ? 'bg-blue-100 text-[#007DCC]' : 'bg-rose-100 text-[#D10056]'
+                            isMD ? 'bg-blue-100 text-[#00E0BA]' : 'bg-rose-100 text-[#FF3483]'
                           }`}>
                             {idx + 1}
                           </div>
@@ -396,7 +396,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                                 {t.name}
                               </span>
                               <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${
-                                isMD ? 'bg-blue-50 text-[#007DCC] border border-blue-200' : 'bg-rose-50 text-[#D10056] border border-rose-200'
+                                isMD ? 'bg-blue-50 text-[#00E0BA] border border-blue-200' : 'bg-rose-50 text-[#FF3483] border border-rose-200'
                               }`}>
                                 {t.group}
                               </span>
@@ -415,7 +415,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
                         <div className="flex items-center gap-1 shrink-0">
                           <button
                             onClick={() => handleStartEdit(t)}
-                            className="p-2 text-slate-500 hover:text-[#007DCC] hover:bg-blue-50 rounded-xl transition"
+                            className="p-2 text-slate-500 hover:text-[#00E0BA] hover:bg-blue-50 rounded-xl transition"
                             title="Edit Data Tim"
                           >
                             <Edit2 size={15} />
@@ -442,7 +442,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
       {teamToDelete && (
         <div className="fixed inset-0 z-60 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center">
-            <div className="w-12 h-12 rounded-full bg-rose-100 text-[#D10056] mx-auto flex items-center justify-center mb-3">
+            <div className="w-12 h-12 rounded-full bg-rose-100 text-[#FF3483] mx-auto flex items-center justify-center mb-3">
               <AlertTriangle size={24} />
             </div>
             <h4 className="text-base font-bold text-slate-900 mb-1">
@@ -463,7 +463,7 @@ export const TeamManagerModal: React.FC<TeamManagerModalProps> = ({
               <button
                 type="button"
                 onClick={handleConfirmDelete}
-                className="flex-1 py-2 px-3 bg-[#D10056] hover:bg-[#b2054c] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-sm"
+                className="flex-1 py-2 px-3 bg-[#FF3483] hover:bg-[#91008D] active:scale-95 text-white font-bold text-xs rounded-xl transition shadow-sm"
               >
                 Ya, Hapus
               </button>

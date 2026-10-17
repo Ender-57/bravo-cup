@@ -51,7 +51,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
         <div>
           <div className="flex items-center gap-2.5">
             <div className={`w-9 h-9 rounded-2xl flex items-center justify-center font-bold shadow-xs ${
-              isMD ? 'bg-blue-100 text-[#007DCC]' : 'bg-rose-100 text-[#D10056]'
+              isMD ? 'bg-blue-100 text-[#00E0BA]' : 'bg-rose-100 text-[#FF3483]'
             }`}>
               <Trophy size={19} />
             </div>
@@ -61,7 +61,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
                   {isMD ? 'Tabel Peringkat Ganda Putra (MD)' : 'Tabel Peringkat Ganda Putri (WD)'}
                 </h3>
                 <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
-                  isMD ? 'bg-blue-100 text-[#007DCC]' : 'bg-rose-100 text-[#D10056]'
+                  isMD ? 'bg-blue-100 text-[#00E0BA]' : 'bg-rose-100 text-[#FF3483]'
                 }`}>
                   {isMD ? 'PUTRA' : 'PUTRI'}
                 </span>
@@ -82,7 +82,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
                 onClick={() => setSelectedGroup(grp)}
                 className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${
                   activeGroup === grp
-                    ? (isMD ? 'bg-[#007DCC] text-white shadow-sm' : 'bg-[#D10056] text-white shadow-sm')
+                    ? (isMD ? 'bg-[#00E0BA] text-white shadow-sm' : 'bg-[#FF3483] text-white shadow-sm')
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -129,13 +129,13 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
                 <th className="py-3 px-3">Pasangan Pemain</th>
                 <th className="py-3 px-2 text-center">Main</th>
                 <th className="py-3 px-2 text-center text-emerald-700">M</th>
-                <th className="py-3 px-2 text-center text-[#D10056]">K</th>
+                <th className="py-3 px-2 text-center text-[#FF3483]">K</th>
                 <th className="py-3 px-2 text-center">Poin Masuk</th>
                 <th className="py-3 px-2 text-center">Poin Kalah</th>
                 <th className="py-3 px-3 text-center bg-amber-50/80 text-slate-900 font-black border-l border-amber-200">
                   <div className="flex items-center justify-center gap-1">
                     <span>Selisih Poin</span>
-                    <ArrowUpDown size={11} className="text-[#007DCC]" />
+                    <ArrowUpDown size={11} className="text-[#00E0BA]" />
                   </div>
                 </th>
               </tr>
@@ -156,7 +156,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
                     <td className="py-3 px-3 text-center">
                       <div className="flex items-center justify-center font-bold">
                         {idx === 0 ? (
-                          <span className="w-6 h-6 rounded-full bg-[#FFB900] text-slate-900 text-xs flex items-center justify-center font-black shadow-sm">
+                          <span className="w-6 h-6 rounded-full bg-[#FFCF00] text-slate-900 text-xs flex items-center justify-center font-black shadow-sm">
                             1
                           </span>
                         ) : idx === 1 ? (
@@ -202,7 +202,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
                     <td className="py-3 px-2 text-center font-bold text-emerald-700">
                       {row.won}
                     </td>
-                    <td className="py-3 px-2 text-center font-semibold text-[#D10056]">
+                    <td className="py-3 px-2 text-center font-semibold text-[#FF3483]">
                       {row.lost}
                     </td>
                     <td className="py-3 px-2 text-center font-medium text-slate-700">
@@ -218,7 +218,7 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({
                         row.pointDiff > 0 
                           ? 'text-emerald-700 font-black text-sm' 
                           : row.pointDiff < 0 
-                          ? 'text-[#D10056] font-black text-sm' 
+                          ? 'text-[#FF3483] font-black text-sm' 
                           : 'text-slate-500 font-bold'
                       }>
                         {pointDiffFormatted}

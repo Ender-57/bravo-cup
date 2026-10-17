@@ -35,17 +35,9 @@ Aplikasi pengelolaan turnamen badminton sistem skor maksimal 30 poin, lengkap de
 1. Buka [Vercel](https://vercel.com) dan login dengan akun GitHub Anda.
 2. Klik tombol **"Add New..."** lalu pilih **"Project"**.
 3. Pilih repository **`bravo-cup`** yang baru saja di-push dan klik **"Import"**.
-4. Di bagian **Environment Variables** (Opsional, konfigurasi default Firestore sudah tertanam otomatis di kode, namun disarankan untuk diisi di Vercel demi *best practice*):
-   - `VITE_FIREBASE_API_KEY` : `AIzaSyBMnKHlGAkM8K-KRQW9_C559-EXFK_mow8`
-   - `VITE_FIREBASE_AUTH_DOMAIN` : `project-0e4f9daa-edf9-4546-bf7.firebaseapp.com`
-   - `VITE_FIREBASE_PROJECT_ID` : `project-0e4f9daa-edf9-4546-bf7`
-   - `VITE_FIREBASE_STORAGE_BUCKET` : `project-0e4f9daa-edf9-4546-bf7.firebasestorage.app`
-   - `VITE_FIREBASE_MESSAGING_SENDER_ID` : `363892117746`
-   - `VITE_FIREBASE_APP_ID` : `1:363892117746:web:ae1e82635fa9c630fe006b`
-   - `VITE_FIREBASE_DATABASE_ID` : `ai-studio-bravocup-6d322511-c35e-4d92-9d99-6db3c37a2216`
-5. Pastikan **Framework Preset** terpilih sebagai **Vite**.
-6. Klik **"Deploy"**.
-7. Dalam ~1 menit, aplikasi Anda akan live di domain gratis Vercel (misal: `https://bravo-cup.vercel.app`)!
+4. Pastikan **Framework Preset** terpilih sebagai **Vite**.
+5. Klik **"Deploy"**.
+6. Dalam ~1 menit, aplikasi Anda akan live di domain gratis Vercel (misal: `https://bravo-cup.vercel.app`)!
 
 ---
 
